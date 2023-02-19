@@ -111,7 +111,6 @@ const Layout = ({ userName }) => {
                         position="static"
                         sx={{
                             height: appBarHeight,
-                            boxShadow: '0px 3px 16px rgba(0, 38, 77, 0.08)',
                             zIndex: 1
                         }}>
                         <Toolbar>
@@ -152,13 +151,13 @@ const Layout = ({ userName }) => {
                                 aria-expanded={open ? 'true' : undefined}
                                 color="inherit"
                                 onClick={(e) => setPopAnchorEl(e.currentTarget)}
-                                sx={{ height: '52.5px' }}
+                            // sx={{ height: '52.5px' }}
                             >
                                 <Avatar alt={userName} scr="" sx={{ margin: '0 10px 0 0', color: 'info.dark' }}>{userName?.charAt(0)}</Avatar>
 
                                 <Box display="flex" sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }} >
                                     <Typography variant="body3" sx={{ margin: 'auto' }} >
-                                        {userName}
+                                        {userName.split(' ')[0]}
                                     </Typography>
 
                                     <ExpandMoreIcon />
@@ -195,7 +194,7 @@ const Layout = ({ userName }) => {
                         elevation={0}
                         sx={{
                             overflowY: 'auto',
-                            padding: '20px 24px',
+                            py: (theme) => theme.spacing(3),
                             borderRadius: 0,
                             height: windowHeight - appBarHeight,
                         }}
