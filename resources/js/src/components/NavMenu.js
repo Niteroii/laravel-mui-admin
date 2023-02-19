@@ -30,7 +30,7 @@ const MENU_ITEMS = [
 
 ];
 
-const NavMenu = ({ toggleDrawer, showDrawer = false, isTablet = true }) => {
+const NavMenu = ({ toggleDrawer, isTablet = true }) => {
     const theme = useTheme();
 
     return (
@@ -51,7 +51,7 @@ const NavMenu = ({ toggleDrawer, showDrawer = false, isTablet = true }) => {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <Box
+            {/* <Box
                 sx={{
                     padding: !isTablet
                         ? '0 12.5%'
@@ -62,9 +62,9 @@ const NavMenu = ({ toggleDrawer, showDrawer = false, isTablet = true }) => {
                 }}
             >
                 <Link to="/">
-                    <img src="../assets/logo/Garcia_Keener_branco.png" />
+                    <img src="../assets/logo/logo.png" />
                 </Link>
-            </Box>
+            </Box> */}
 
             <List disablePadding sx={{ padding: '15% 0 0' }}>
                 {MENU_ITEMS
@@ -101,7 +101,6 @@ const NavMenu = ({ toggleDrawer, showDrawer = false, isTablet = true }) => {
 
 NavMenu.propTypes = {
     toggleDrawer: PropTypes.func,
-    showDrawer: PropTypes.bool,
     isTablet: PropTypes.bool,
 };
 

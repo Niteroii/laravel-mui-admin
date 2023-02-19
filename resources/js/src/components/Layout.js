@@ -22,9 +22,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-
-import { useWindowHeight } from '../hooks';
-
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
@@ -38,6 +35,7 @@ import Loading from './Loading';
 import NotificationBar from './NotificationBar';
 import DialogBar from './DialogBar';
 
+import useWindowHeight from '../hooks/useWindowHeight';
 
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
@@ -47,7 +45,7 @@ const Layout = ({ userName }) => {
     const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
     const windowHeight = useWindowHeight();
 
-    const { collapseSidebar, collapsed } = useProSidebar();
+    const { collapseSidebar } = useProSidebar();
     const [drawerOpen, setDrawerOpen] = React.useState(false);
 
     const [popAnchorEl, setPopAnchorEl] = React.useState(null);
@@ -104,7 +102,7 @@ const Layout = ({ userName }) => {
                             },
                         }}
                     >
-                        <NavMenu toggleDrawer={toggleDrawer} showDrawer={collapsed} />
+                        <NavMenu toggleDrawer={toggleDrawer} />
                     </Sidebar>
                 )}
 
@@ -197,11 +195,9 @@ const Layout = ({ userName }) => {
                         elevation={0}
                         sx={{
                             overflowY: 'auto',
-                            // p: 5,
                             padding: '20px 24px',
                             borderRadius: 0,
                             height: windowHeight - appBarHeight,
-                            backgroundColor: 'secondary.light',
                         }}
                     >
                         <Outlet />

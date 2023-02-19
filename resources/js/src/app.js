@@ -11,13 +11,12 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import auth from './controllers/auth';
 import dialog from './controllers/dialog';
-// import * as hooks from './hooks';
 import notifications from './controllers/notifications';
 import router from './router';
 import state from './controllers/state';
 import { ThemeProvider } from '@mui/material';
 
-import { AppTheme } from './theme';
+import createTheme from './theme';
 
 class App {
 
@@ -50,7 +49,7 @@ class App {
                     <ReduxProvider store={state.store}>
                         <React.StrictMode>
                             <ProSidebarProvider>
-                                <ThemeProvider theme={AppTheme}>
+                                <ThemeProvider theme={createTheme()}>
                                     <RouterProvider router={router.createRouter()} />
                                 </ThemeProvider>
                             </ProSidebarProvider>
