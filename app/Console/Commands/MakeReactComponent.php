@@ -68,10 +68,20 @@ class MakeReactComponent extends Command
         $afterComponent = '';
         $exports = $connected ? "connect(mapStateToProps)($name)" : $name;
 
+        $wrapperOpenTag = "        <React.Fragment>";
+        $wrapperCloseTag = "        </React.Fragment>";
+
         if ($propTypes) {
             $imports .= "import PropTypes from 'prop-types';\n";
 
             $afterComponent .= "$name.propTypes = {\n    // appIsLoaded: PropTypes.bool.isRequired\n};\n";
+        }
+
+        if ($page) {
+            $imports .= "import Grid from '@mui/material/Unstable_Grid2';\n";
+
+            $wrapperOpenTag = "        <Grid container spacing={2}>\n            <Grid>";
+            $wrapperCloseTag = "            </Grid>\n        </Grid>";
         }
 
         if ($connected) {
@@ -87,9 +97,9 @@ $imports
 const $name = () => {
 
     return (
-        <React.Fragment>
+$wrapperOpenTag
             Componente $name
-        </React.Fragment>
+$wrapperCloseTag
     );
 };
 

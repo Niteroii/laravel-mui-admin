@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
@@ -190,17 +190,16 @@ const Layout = ({ userName }) => {
                             </Menu>
                         </Toolbar>
                     </AppBar>
-                    <Paper
-                        elevation={0}
+                    <Box
                         sx={{
                             overflowY: 'auto',
-                            py: (theme) => theme.spacing(3),
-                            borderRadius: 0,
+                            p: (theme) => theme.spacing(3),
                             height: windowHeight - appBarHeight,
+                            flexGrow: 1,
                         }}
                     >
                         <Outlet />
-                    </Paper>
+                    </Box>
                 </Stack>
             </Stack>
             <NotificationBar />

@@ -16,7 +16,7 @@ import router from './router';
 import state from './controllers/state';
 import { ThemeProvider } from '@mui/material';
 
-import createTheme from './theme';
+import theme from './theme';
 
 class App {
 
@@ -46,15 +46,15 @@ class App {
 
             axios.get('/sanctum/csrf-cookie').then(() => {
                 ReactDOM.render(
-                    <ReduxProvider store={state.store}>
-                        <React.StrictMode>
+                    <React.StrictMode>
+                        <ReduxProvider store={state.store}>
                             <ProSidebarProvider>
-                                <ThemeProvider theme={createTheme()}>
+                                <ThemeProvider theme={theme}>
                                     <RouterProvider router={router.createRouter()} />
                                 </ThemeProvider>
                             </ProSidebarProvider>
-                        </React.StrictMode>
-                    </ReduxProvider>,
+                        </ReduxProvider>
+                    </React.StrictMode>,
                     rootElement
                 );
 
