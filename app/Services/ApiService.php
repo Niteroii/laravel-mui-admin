@@ -15,12 +15,15 @@ class ApiService
     {
         // this function result should be cached
 
+        /** @var mixed */
+        $container = Container::getInstance();
+
         $models = collect(File::allFiles(app_path()))
-            ->map(function ($item) {
+            ->map(function ($item) use ($container) {
                 $path = $item->getRelativePathName();
                 $class = sprintf(
                     '\%s%s',
-                    Container::getInstance()->getNamespace(),
+                    $container->getNamespace(),
                     strtr(substr($path, 0, strrpos($path, '.')), DIRECTORY_SEPARATOR, '\\')
                 );
 
@@ -32,8 +35,6 @@ class ApiService
                 if (class_exists($class)) {
 
                     $reflection = new \ReflectionClass($class);
-
-
 
                     $valid = $reflection->isSubclassOf(Model::class) &&
                         !$reflection->isAbstract() &&
