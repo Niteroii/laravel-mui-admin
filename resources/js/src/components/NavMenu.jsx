@@ -59,7 +59,7 @@ const NavMenu = ({ toggleDrawer, isTablet = true }) => (
                                 padding: '8px 16px',
                                 color: 'primary.contrastText',
                                 '&:hover': { backgroundColor: 'primary.main' },
-                                m: 2
+                                m: 2,
                             }}
                             component={item.component}
                             to={item.to}

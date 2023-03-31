@@ -64,13 +64,9 @@ const NotificationBar = ({ notifications }) => {
     );
 };
 
-NotificationBar.propTypes = {
-    notifications: PropTypes.array,
-};
+NotificationBar.propTypes = { notifications: PropTypes.array };
 
-const mapStateToProps = (state) => ({
-    notifications: state.notifications.items,
-});
+const mapStateToProps = (state) => ({ notifications: state.notifications.items });
 
 export default connect(mapStateToProps)(NotificationBar);
 

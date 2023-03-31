@@ -28,13 +28,13 @@ class Notifications {
     info = (message) => this.create(message, 'info');
     warning = (message) => this.create(message, 'warning');
 
-    dismiss = (key) => {
+    dismiss = (key) => this.constructor.dispatchDismiss(key);
 
+    static dispatchDismiss = (key) => {
         state.dispatch({
             type: 'NOTIFICATIONS_DISMISS',
             payload: key,
         });
-
     };
 
 }

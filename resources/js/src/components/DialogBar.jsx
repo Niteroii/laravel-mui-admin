@@ -77,17 +77,21 @@ const DialogBar = () => {
             </DialogContent>
             <DialogActions>
                 {type !== 'alert' && (
-                    <Button onClick={() => {
-                        resolve(false);
-                        handleClose();
-                    }}>
+                    <Button
+                        onClick={() => {
+                            resolve(false);
+                            handleClose();
+                        }}
+                    >
                         {cancelText}
                     </Button>
                 )}
-                <Button onClick={() => {
-                    resolve(true);
-                    handleClose();
-                }}>
+                <Button
+                    onClick={() => {
+                        resolve(true);
+                        handleClose();
+                    }}
+                >
                     {confirmText}
                 </Button>
             </DialogActions>

@@ -10,11 +10,11 @@ export default createTheme({
     // https://m2.material.io/inline-tools/color/
     // https://zenoo.github.io/mui-theme-creator/
 
-    // palette: {
-    //     primary: {
-    //         main: '#f8c3c3',
-    //         light: '#c78383',
-    //         dark: '#fcd5d5'
-    //     }
-    // }
+    palette: {
+        primary: {
+            main: '#f8c3c3',
+            light: '#c78383',
+            dark: '#fcd5d5',
+        },
+    },
 });

@@ -113,8 +113,9 @@ const Layout = ({ userName }) => {
                         position="static"
                         sx={{
                             height: appBarHeight,
-                            zIndex: 1
-                        }}>
+                            zIndex: 1,
+                        }}
+                    >
                         <Toolbar>
                             <IconButton
                                 size="large"
@@ -146,9 +147,11 @@ const Layout = ({ userName }) => {
                                 </Drawer>
                             )}
 
-                            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-
-                            </Typography>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{ flexGrow: 1 }}
+                            />
                             <Button
                                 id="popMenu-btn"
                                 aria-controls={open ? 'popMenu' : undefined}
@@ -158,10 +161,22 @@ const Layout = ({ userName }) => {
                                 onClick={(e) => setPopAnchorEl(e.currentTarget)}
                             // sx={{ height: '52.5px' }}
                             >
-                                <Avatar alt={userName} scr="" sx={{ margin: '0 10px 0 0', color: 'info.dark' }}>{userName?.charAt(0)}</Avatar>
+                                <Avatar
+                                    alt={userName}
+                                    scr=""
+                                    sx={{ margin: '0 10px 0 0', color: 'info.dark' }}
+                                >
+                                    {userName?.charAt(0)}
+                                </Avatar>
 
-                                <Box display="flex" sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }} >
-                                    <Typography variant="body3" sx={{ margin: 'auto' }} >
+                                <Box
+                                    display="flex"
+                                    sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
+                                >
+                                    <Typography
+                                        variant="body3"
+                                        sx={{ margin: 'auto' }}
+                                    >
                                         {userName.split(' ')[0]}
                                     </Typography>
 
@@ -174,14 +189,10 @@ const Layout = ({ userName }) => {
                                 anchorEl={popAnchorEl}
                                 open={popOpen}
                                 onClose={() => setPopAnchorEl(null)}
-                                MenuListProps={{
-                                    'aria-labelledby': 'popMenu-btn',
-                                }}
+                                MenuListProps={{ 'aria-labelledby': 'popMenu-btn' }}
                             >
                                 <MenuList
-                                    sx={{
-                                        minWidth: 180,
-                                    }}
+                                    sx={{ minWidth: 180 }}
                                 >
                                     <MenuItem onClick={handleLogout}>
                                         <ListItemIcon>
@@ -213,15 +224,9 @@ const Layout = ({ userName }) => {
     );
 };
 
+Layout.propTypes = { userName: PropTypes.string };
 
-Layout.propTypes = {
-    userName: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-    userName: state.app.user?.name,
-});
+const mapStateToProps = (state) => ({ userName: state.app.user?.name });
 
 export default connect(mapStateToProps)(Layout);
-
 

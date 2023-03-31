@@ -63,7 +63,13 @@ module.exports = {
         'prefer-object-spread': 'error',
         'no-array-constructor': 'error',
         'array-callback-return': 'error',
-        'prefer-destructuring': 'error',
+        'prefer-destructuring': [
+            "error",
+            { "object": true, "array": false },
+            {
+                "enforceForRenamedProperties": true
+            }
+        ],
         'prefer-template': 'error',
         'template-curly-spacing': 'error',
         'no-useless-escape': 'error',
