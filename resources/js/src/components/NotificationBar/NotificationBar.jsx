@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import Transition from './NotificationBarTransition';
 
-import app from '../../app';
+import api from '../../api';
 
 import { connect } from 'react-redux';
 
@@ -23,14 +23,12 @@ const NotificationBar = ({ notifications }) => {
         }
     }, [notifications]);
 
-
     const handleClose = (_event, reason) => {
         if (reason === 'clickaway' || !notifications.length) {
             return;
         }
-        app.notifications.dismiss(notifications[0].key);
+        api.notifications.dismiss(notifications[0].key);
     };
-
 
     return (
         <Snackbar
@@ -64,7 +62,13 @@ const NotificationBar = ({ notifications }) => {
     );
 };
 
-NotificationBar.propTypes = { notifications: PropTypes.array };
+NotificationBar.propTypes = {
+    notifications: PropTypes.arrayOf(PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+    })),
+};
 
 const mapStateToProps = (state) => ({ notifications: state.notifications.items });
 

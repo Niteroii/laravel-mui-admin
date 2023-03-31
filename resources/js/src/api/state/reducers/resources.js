@@ -1,7 +1,7 @@
 
 const INITIAL_STATE = { items: {} };
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action = {}) => {
     switch (action.type) {
         case 'RESOURCES_INCLUDE_LIST':
             return {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import axios from 'axios';
 
-import app from '../app';
 import { connect } from 'react-redux';
 
 import { Sidebar, useProSidebar } from 'react-pro-sidebar';
@@ -36,6 +35,7 @@ import NotificationBar from './NotificationBar/NotificationBar';
 import DialogBar from './DialogBar';
 
 import useWindowHeight from '../hooks/useWindowHeight';
+import dialog from '../api/dialog';
 
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
@@ -48,7 +48,7 @@ const handleLogout = () => {
         confirmText: 'Sim',
         cancelText: 'Não',
     };
-    app.dialog.show(dialogOptions).then((result) => {
+    dialog.show(dialogOptions).then((result) => {
         if (result) {
             app.auth.logout();
         }

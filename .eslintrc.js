@@ -82,7 +82,14 @@ module.exports = {
         'prefer-rest-params': 'error',
         'default-param-last': 'error',
         'no-new-func': 'error',
-        'space-before-function-paren': ['error', 'always'],
+        'space-before-function-paren': [
+            'error',
+            {
+                'anonymous': 'always',
+                'named': 'never',
+                'asyncArrow': 'always'
+            }
+        ],
         'space-before-blocks': 'error',
         'no-param-reassign': 'error',
         'prefer-spread': 'error',
@@ -177,6 +184,7 @@ module.exports = {
         'camelcase': 'error',
         'new-cap': 'error',
         'no-underscore-dangle': 'error',
+        'semi-spacing': 'error',
         'import/no-mutable-exports': 'error',
         'import/prefer-default-export': 'error',
         'import/first': 'error',

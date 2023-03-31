@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import app from '../app';
+import api from '../api';
 
 const DEFAULT_OPTION_STATE = {
     message: '',
@@ -28,14 +28,13 @@ const DialogBar = () => {
     };
 
     React.useEffect(() => {
-        app.dialog.onShow = (o) => {
+        api.dialog.onShow = (o) => {
             setOptions(o);
             setOpen(true);
         };
-        // console.log(open)
 
         return () => {
-            app.dialog.onShow = null;
+            api.dialog.onShow = null;
         };
     }, []);
 
@@ -63,7 +62,6 @@ const DialogBar = () => {
                 }
             }}
             closeAfterTransition
-        // onEnded={() => console.log('onEnded')}
         >
             {title && (
                 <DialogTitle>
