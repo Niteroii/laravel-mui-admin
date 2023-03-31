@@ -1,4 +1,3 @@
-
 import { v4 as uuidv4 } from 'uuid';
 import state from '../state';
 
@@ -7,7 +6,6 @@ const NOTIFICATION_TIMEOUT = 10000;
 class Notifications {
 
     create = (message, type = 'info') => {
-
         const key = uuidv4();
 
         state.dispatch({
@@ -20,7 +18,6 @@ class Notifications {
         });
 
         setTimeout(() => this.dismiss(key), NOTIFICATION_TIMEOUT);
-
     };
 
     success = (message) => this.create(message, 'success');

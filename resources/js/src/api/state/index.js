@@ -23,7 +23,6 @@ class State {
     }
 
     get store() {
-
         return this.#store;
     }
 

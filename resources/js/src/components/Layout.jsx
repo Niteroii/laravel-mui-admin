@@ -36,6 +36,7 @@ import DialogBar from './DialogBar';
 
 import useWindowHeight from '../hooks/useWindowHeight';
 import dialog from '../api/dialog';
+import api from '../api';
 
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
@@ -50,7 +51,7 @@ const handleLogout = () => {
     };
     dialog.show(dialogOptions).then((result) => {
         if (result) {
-            app.auth.logout();
+            api.auth.logout();
         }
     });
 };
@@ -72,19 +73,17 @@ const Layout = ({ userName }) => {
         );
     }
 
-    const toggleDrawer = (open) => (
-        (event) => {
-            if (
-                event.type === 'keydown'
-                && (event.key === 'Tab'
-                    || event.key === 'Shift')
-            ) {
-                return;
-            }
-
-            setDrawerOpen(open);
+    const toggleDrawer = (open) => (event) => {
+        if (
+            event.type === 'keydown'
+            && (event.key === 'Tab'
+                || event.key === 'Shift')
+        ) {
+            return;
         }
-    );
+
+        setDrawerOpen(open);
+    };
 
     const appBarHeight = isTablet ? APP_BAR_HEIGHT : APP_BAR_HEIGHT_MOBILE;
 

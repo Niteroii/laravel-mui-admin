@@ -17,12 +17,20 @@ const DEFAULT_OPTION_STATE = {
     resolve: () => null,
 };
 
+/**
+ * Componente "sempre plugado" para `<Dialog />` do Material UI.
+ *
+ * Chama o método `api.dialog.show()` para exibir o diálogo.
+ *
+ * @component
+ */
 const DialogBar = () => {
-
-    // const [message, setMessage] = React.useState('');
     const [options, setOptions] = React.useState(DEFAULT_OPTION_STATE);
     const [open, setOpen] = React.useState(false);
 
+    /**
+     * Fecha o diálogo.
+     */
     const handleClose = () => {
         setOpen(false);
     };
@@ -32,7 +40,6 @@ const DialogBar = () => {
             setOptions(o);
             setOpen(true);
         };
-
         return () => {
             api.dialog.onShow = null;
         };

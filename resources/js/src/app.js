@@ -12,11 +12,9 @@ import api from './api';
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-
     // start app
 
     axios.get('/sanctum/csrf-cookie').then(() => {
-
         window.addEventListener('load', () => {
             api.state.dispatch({
                 type: 'APP_LOADED',
@@ -33,5 +31,4 @@ if (rootElement) {
 
         renderer.renderMainApp(rootElement);
     });
-
 }

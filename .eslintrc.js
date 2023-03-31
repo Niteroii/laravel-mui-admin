@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 module.exports = {
     'env': {
         'browser': true,
@@ -11,6 +10,7 @@ module.exports = {
         'plugin:import/recommended',
         'plugin:import/react',
         'plugin:jsx-a11y/recommended',
+        './.eslintrc.jsdocs.js',
     ],
     'overrides': [
     ],
@@ -22,223 +22,207 @@ module.exports = {
         'sourceType': 'module'
     },
     'plugins': [
-        'react'
+        'react',
+        'react-hooks',
+        'import',
+        'jsx-a11y',
     ],
     'rules': {
-        'indent': [
-            'error',
-            4,
-            { 'SwitchCase': 1 }
-        ],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
-        'quotes': [
-            'error',
-            'single'
-        ],
-        'semi': [
-            'error',
-            'always'
-        ],
-        'jsx-quotes': [
-            'error',
-            'prefer-double'
-        ],
-        'no-else-return': [
-            'error',
-            {
-                allowElseIf: false,
-            }
-        ],
-        'prefer-const': 'error',
-        'no-var': 'error',
-        'no-const-assign': 'error',
-        'no-console': 'warn',
-        'no-multi-spaces': 'error',
-        'no-new-object': 'error',
-        'object-shorthand': 'error',
-        'quote-props': ['error', 'as-needed'],
-        'prefer-object-spread': 'error',
-        'no-array-constructor': 'error',
+        'array-bracket-spacing': 'error',
         'array-callback-return': 'error',
-        'prefer-destructuring': [
-            "error",
-            { "object": true, "array": false },
-            {
-                "enforceForRenamedProperties": true
-            }
-        ],
-        'prefer-template': 'error',
-        'template-curly-spacing': 'error',
-        'no-useless-escape': 'error',
-        'wrap-iife': 'error',
-        'no-loop-func': 'error',
-        'func-style': [
-            'error',
-            'expression'
-        ],
-        'prefer-rest-params': 'error',
-        'default-param-last': 'error',
-        'no-new-func': 'error',
-        'space-before-function-paren': [
-            'error',
-            {
-                'anonymous': 'always',
-                'named': 'never',
-                'asyncArrow': 'always'
-            }
-        ],
-        'space-before-blocks': 'error',
-        'no-param-reassign': 'error',
-        'prefer-spread': 'error',
-        'function-paren-newline': 'error',
-        'prefer-arrow-callback': 'error',
-        'arrow-spacing': 'error',
-        'arrow-parens': 'error',
         'arrow-body-style': 'error',
-        'no-confusing-arrow': 'error',
-        'implicit-arrow-linebreak': 'error',
-        'no-useless-constructor': 'error',
-        'no-dupe-class-members': 'error',
+        'arrow-parens': 'error',
+        'arrow-spacing': 'error',
+        'block-spacing': 'error',
+        'brace-style': 'error',
+        'camelcase': 'error',
         'class-methods-use-this': 'error',
-        'no-duplicate-imports': 'error',
-        'eqeqeq': 'error',
-        'no-nested-ternary': 'error',
-        'no-unneeded-ternary': 'error',
-        'object-curly-newline': ["error", {
-            'multiline': true,
-            'minProperties': 4,
-        }],
-        'no-iterator': 'error',
+        'comma-dangle': ['error', 'always-multiline'],
+        'comma-spacing': 'error',
+        'comma-style': 'error',
+        'computed-property-spacing': ['error', 'never'],
+        'curly': 'error',
+        'default-param-last': 'error',
         'dot-notation': 'error',
-        'no-restricted-properties': [
-            'error',
-            {
-                'object': 'Math',
-                'property': 'pow',
-                'message': 'Use the exponentiation operator (**) instead.'
+        'eol-last': 'error',
+        'eqeqeq': 'error',
+        'func-call-spacing': ['error', 'never'],
+        'func-style': ['error', 'expression'],
+        'function-paren-newline': 'error',
+        'implicit-arrow-linebreak': 'error',
+        'import/extensions': ['error', 'never', {
+            pattern: {
+                'css': 'always',
+                'gif': 'always',
+                'ico': 'always',
+                'jpeg': 'always',
+                'jpg': 'always',
+                'json': 'always',
+                'png': 'always',
+                'scss': 'always',
+                'svg': 'always',
+                'webp': 'always'
             }
-
-        ],
-        'no-restricted-syntax': [
-            'error',
-            {
-                'selector': 'ForInStatement',
-                'message': 'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
-            },
-            {
-                'selector': 'ForOfStatement',
-                'message': 'for..of loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.'
-            },
-            {
-                'selector': 'LabeledStatement',
-                'message': 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.'
-            },
-            {
-                'selector': 'WithStatement',
-                'message': '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.'
-            },
-            {
-                'selector': 'BinaryExpression[operator=\'in\']',
-                'message': 'The `in` operator can be confusing to readers unfamiliar with JavaScripts semantics. Use `Array.prototype.includes` or the `indexOf` method instead.'
-            },
-            {
-                'selector': 'BinaryExpression[operator=\'instanceof\']',
-                'message': 'The `instanceof` operator is subject to the whims of the JavaScript engine. Use `Array.isArray` or `Object.getPrototypeOf` instead.'
-            }
-        ],
-        'one-var': ['error', 'never'],
-        'no-multi-assign': 'error',
-        'no-plusplus': 'error',
+        }],
+        'import/first': 'error',
+        'import/no-mutable-exports': 'error',
+        'import/no-webpack-loader-syntax': 'error',
+        'import/prefer-default-export': 'error',
+        'indent': ['error', 4, {
+            'SwitchCase': 1
+        }],
+        'jsx-quotes': ['error', 'prefer-double'],
+        'key-spacing': 'error',
+        'keyword-spacing': 'error',
+        'linebreak-style': ['error', 'unix'],
         'max-len': ['error', {
             'code': 100,
             'ignoreTrailingComments': true,
-            'ignoreStrings': true,
+            'ignoreUrls': true,
         }],
-        'operator-linebreak': ['error', 'before'],
-        'no-mixed-operators': 'error',
-        'curly': 'error',
-        'brace-style': 'error',
-        'spaced-comment': 'error',
-        'space-before-blocks': 'error',
-        'keyword-spacing': 'error',
-        'space-infix-ops': 'error',
-        'newline-per-chained-call': ["error", { "ignoreChainWithDepth": 2 }],
-        'no-trailing-spaces': 'error',
-        'no-whitespace-before-property': 'error',
-        'no-multiple-empty-lines': ['error', { 'max': 1 }],
-        'space-in-parens': 'error',
-        'array-bracket-spacing': 'error',
-        'object-curly-spacing': ['error', 'always'],
-        'block-spacing': 'error',
-        'comma-spacing': 'error',
-        'computed-property-spacing': ['error', 'never'],
-        'func-call-spacing': ['error', 'never'],
-        'key-spacing': 'error',
-        'comma-style': 'error',
-        'comma-dangle': ['error', 'always-multiline'],
-        'no-new-wrappers': 'error',
-        'radix': 'error',
-        'camelcase': 'error',
         'new-cap': 'error',
-        'no-underscore-dangle': 'error',
-        'semi-spacing': 'error',
-        'import/no-mutable-exports': 'error',
-        'import/prefer-default-export': 'error',
-        'import/first': 'error',
-        'import/no-webpack-loader-syntax': 'error',
-        'import/extensions': [
-            'error',
-            'never',
-            {
-                pattern: {
-                    'svg': 'always',
-                    'png': 'always',
-                    'jpg': 'always',
-                    'jpeg': 'always',
-                    'gif': 'always',
-                    'webp': 'always',
-                    'ico': 'always',
-                    'json': 'always',
-                    'css': 'always',
-                    'scss': 'always',
-                }
-            }
-        ],
+        'newline-per-chained-call': ["error", {
+            "ignoreChainWithDepth": 2
+        }],
+        'no-array-constructor': 'error',
+        'no-caller': 'error',
+        'no-confusing-arrow': 'error',
+        'no-console': 'warn',
+        'no-const-assign': 'error',
+        'no-dupe-class-members': 'error',
+        'no-duplicate-imports': 'error',
+        'no-else-return': ['error', {
+            allowElseIf: false
+        }],
+        'no-extend-native': 'error',
+        'no-extra-bind': 'error',
+        'no-extra-parens': ['error', 'all', {
+            'ignoreJSX': 'multi-line'
+        }],
+        'no-invalid-this': 'error',
+        'no-iterator': 'error',
+        'no-loop-func': 'error',
+        'no-mixed-operators': 'error',
+        'no-multi-assign': 'error',
+        'no-multi-spaces': 'error',
+        'no-multi-str': 'error',
+        'no-multiple-empty-lines': ['error', {
+            'max': 1,
+            'maxBOF': 0,
+        }],
+        'no-nested-ternary': 'error',
+        'no-new-func': 'error',
+        'no-new-object': 'error',
+        'no-new-wrappers': 'error',
+        'no-param-reassign': 'error',
+        'no-plusplus': 'error',
         'no-restricted-globals': ['error', 'event', 'fdescribe', 'isNaN', 'isFinite'],
-        'react/no-multi-comp': 'error',
+        'no-restricted-properties': ['error', {
+            'message': 'Use the exponentiation operator (**) instead.',
+            'object': 'Math',
+            'property': 'pow'
+        }],
+        'no-restricted-syntax': ['error', {
+            'message': 'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+            'selector': 'ForInStatement'
+        }, {
+                'message': 'for..of loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+                'selector': 'ForOfStatement'
+            }, {
+                'message': 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+                'selector': 'LabeledStatement'
+            }, {
+                'message': '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+                'selector': 'WithStatement'
+            }, {
+                'message': 'The `in` operator can be confusing to readers unfamiliar with JavaScripts semantics. Use `Array.prototype.includes` or the `indexOf` method instead.',
+                'selector': 'BinaryExpression[operator=\'in\']'
+            }, {
+                'message': 'The `instanceof` operator is subject to the whims of the JavaScript engine. Use `Array.isArray` or `Object.getPrototypeOf` instead.',
+                'selector': 'BinaryExpression[operator=\'instanceof\']'
+            }],
+        'no-return-assign': 'error',
+        'no-tabs': 'error',
+        'no-trailing-spaces': 'error',
+        'no-underscore-dangle': 'error',
+        'no-unneeded-ternary': 'error',
+        'no-useless-constructor': 'error',
+        'no-useless-escape': 'error',
+        'no-var': 'error',
+        'no-whitespace-before-property': 'error',
+        'no-with': 'error',
+        'object-curly-newline': ["error", {
+            'minProperties': 4,
+            'multiline': true
+        }],
+        'object-curly-spacing': ['error', 'always'],
+        'object-shorthand': 'error',
+        'one-var': ['error', 'never'],
+        'operator-linebreak': ['error', 'before'],
+        'padded-blocks': ['error', {
+            'blocks': 'never',
+            'classes': 'always',
+            'switches': 'never',
+        }],
+        'prefer-arrow-callback': 'error',
+        'prefer-const': 'error',
+        'prefer-destructuring': ["error", {
+            "array": false,
+            "object": true
+        }, {
+                "enforceForRenamedProperties": true
+            }],
+        'prefer-object-spread': 'error',
+        'prefer-promise-reject-errors': 'error',
+        'prefer-rest-params': 'error',
+        'prefer-spread': 'error',
+        'prefer-template': 'error',
+        'quote-props': ['error', 'as-needed'],
+        'quotes': ['error', 'single'],
+        'radix': 'error',
         'react/forbid-prop-types': 'error',
-        'react/jsx-boolean-value': 'error', // copilot suggestion
-        'react/jsx-curly-spacing': 'error', // copilot suggestion
-        'react/jsx-equals-spacing': 'error', // copilot suggestion
-        'react/jsx-filename-extension': 'error', // copilot suggestion
-        'react/jsx-first-prop-new-line': 'error', // copilot suggestion
-        'react/jsx-handler-names': 'error', // copilot suggestion
-        'react/jsx-indent': 'error', // copilot suggestion
-        'react/jsx-indent-props': 'error', // copilot suggestion
-        'react/jsx-key': 'error', // copilot suggestion
-        'react/jsx-max-props-per-line': 'error', // copilot suggestion
-        'react/jsx-no-bind': [
-            'error',
-            {
-                'allowArrowFunctions': true,
-            }
-        ], // copilot suggestion
-        'react/jsx-no-duplicate-props': 'error', // copilot suggestion
-        'react/prefer-stateless-function': 'error',
-        'react/jsx-pascal-case': 'error',
+        'react/jsx-boolean-value': 'error',
+        'react/jsx-boolean-value': 'error',
         'react/jsx-closing-bracket-location': 'error',
         'react/jsx-closing-tag-location': 'error',
-        'react/jsx-tag-spacing': 'error',
         'react/jsx-curly-spacing': 'error',
-        'react/jsx-boolean-value': 'error',
-        'react/no-array-index-key': 'error',
-        'react/no-string-refs': 'error',
+        'react/jsx-curly-spacing': 'error',
+        'react/jsx-equals-spacing': 'error',
+        'react/jsx-filename-extension': 'error',
+        'react/jsx-first-prop-new-line': 'error',
+        'react/jsx-handler-names': 'error',
+        'react/jsx-indent': 'error',
+        'react/jsx-indent-props': 'error',
+        'react/jsx-key': 'error',
+        'react/jsx-max-props-per-line': 'error',
+        'react/jsx-no-bind': ['error', {
+            'allowArrowFunctions': true
+        }],
+        'react/jsx-no-duplicate-props': 'error',
+        'react/jsx-pascal-case': 'error',
+        'react/jsx-tag-spacing': 'error',
         'react/jsx-wrap-multilines': 'error',
+        'react/no-array-index-key': 'error',
+        'react/no-multi-comp': 'error',
+        'react/no-string-refs': 'error',
+        'react/prefer-stateless-function': 'error',
         'react/self-closing-comp': 'error',
-
+        'rest-spread-spacing': 'error',
+        'semi': ['error', 'always'],
+        'semi-spacing': 'error',
+        'space-before-blocks': 'error',
+        'space-before-blocks': 'error',
+        'space-before-function-paren': ['error', {
+            'anonymous': 'always',
+            'asyncArrow': 'always',
+            'named': 'never'
+        }],
+        'space-in-parens': 'error',
+        'space-infix-ops': 'error',
+        'spaced-comment': 'error',
+        'switch-colon-spacing': 'error',
+        'template-curly-spacing': 'error',
+        'wrap-iife': 'error',
     },
     'settings': {
         'react': {

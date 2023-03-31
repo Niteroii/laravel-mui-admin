@@ -1,4 +1,3 @@
-
 const INITIAL_STATE = { items: {} };
 
 export default (state = INITIAL_STATE, action = {}) => {
@@ -8,15 +7,15 @@ export default (state = INITIAL_STATE, action = {}) => {
                 items: {
                     ...state.items,
                     [action.payload.entity]: {
-                        ...(state.items[action.payload.entity] || {}),
-                        ...(action.payload.items.reduce((acc, item) => ({
+                        ...state.items[action.payload.entity] || {},
+                        ...action.payload.items.reduce((acc, item) => ({
                             ...acc,
                             [item.id]: {
                                 original: item,
                                 attributes: item,
                                 hasChanges: false,
                             },
-                        }), {})),
+                        }), {}),
                     },
                 },
             };
@@ -26,7 +25,7 @@ export default (state = INITIAL_STATE, action = {}) => {
                 items: {
                     ...state.items,
                     [action.payload.entity]: {
-                        ...(state.items[action.payload.entity] || {}),
+                        ...state.items[action.payload.entity] || {},
                         [action.payload.item.id]: {
                             original: action.payload.item,
                             attributes: action.payload.item,
@@ -41,7 +40,7 @@ export default (state = INITIAL_STATE, action = {}) => {
                 items: {
                     ...state.items,
                     [action.payload.entity]: {
-                        ...(state.items[action.payload.entity] || {}),
+                        ...state.items[action.payload.entity] || {},
                         [action.payload.item.id]: {
                             original: state.items[action.payload.entity][action.payload.item.id].original,
                             attributes: {

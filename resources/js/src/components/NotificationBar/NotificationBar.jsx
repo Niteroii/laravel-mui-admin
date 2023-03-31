@@ -14,7 +14,6 @@ import api from '../../api';
 import { connect } from 'react-redux';
 
 const NotificationBar = ({ notifications }) => {
-
     const [messageInfo, setMessageInfo] = React.useState(undefined);
 
     React.useEffect(() => {

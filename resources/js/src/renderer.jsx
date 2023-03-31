@@ -12,7 +12,6 @@ import api from './api';
 export default {
 
     renderMainApp: (rootElement) => {
-
         ReactDOM.render(
             <React.StrictMode>
                 <ReduxProvider store={api.state.store}>
