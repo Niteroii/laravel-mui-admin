@@ -32,13 +32,28 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import Loading from './Loading';
-import NotificationBar from './NotificationBar';
+import NotificationBar from './NotificationBar/NotificationBar';
 import DialogBar from './DialogBar';
 
 import useWindowHeight from '../hooks/useWindowHeight';
 
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
+
+const handleLogout = () => {
+    const dialogOptions = {
+        title: 'Sair',
+        message: 'Deseja realmente encerrar a sessão?',
+        type: 'confirm',
+        confirmText: 'Sim',
+        cancelText: 'Não',
+    };
+    app.dialog.show(dialogOptions).then((result) => {
+        if (result) {
+            app.auth.logout();
+        }
+    });
+};
 
 const Layout = ({ userName }) => {
 
@@ -60,9 +75,9 @@ const Layout = ({ userName }) => {
     const toggleDrawer = (open) => (
         (event) => {
             if (
-                event.type === 'keydown' &&
-                (event.key === 'Tab' ||
-                    event.key === 'Shift')
+                event.type === 'keydown'
+                && (event.key === 'Tab'
+                    || event.key === 'Shift')
             ) {
                 return;
             }
@@ -71,42 +86,29 @@ const Layout = ({ userName }) => {
         }
     );
 
-    const handleLogout = () => {
-        const dialogOptions = {
-            title: 'Sair',
-            message: 'Deseja realmente encerrar a sessão?',
-            type: 'confirm',
-            confirmText: 'Sim',
-            cancelText: 'Não'
-        };
-        app.dialog.show(dialogOptions).then((result) => {
-            if (result) {
-                app.auth.logout();
-            }
-        });
-    };
-
     const appBarHeight = isTablet ? APP_BAR_HEIGHT : APP_BAR_HEIGHT_MOBILE;
 
     return (
         <React.Fragment>
-            <Stack direction="row" spacing={0} sx={{ overflow: 'hidden', height: '100vh' }} >
-
+            <Stack
+                direction="row"
+                spacing={0}
+                sx={{ overflow: 'hidden', height: '100vh' }}
+            >
                 {isTablet && (
                     <Sidebar
                         width="264px"
                         collapsedWidth="58px"
-                        rootStyles={{
-                            '.ps-sidebar-container': {
-                                height: 'unset',
-                            },
-                        }}
+                        rootStyles={{ '.ps-sidebar-container': { height: 'unset' } }}
                     >
                         <NavMenu toggleDrawer={toggleDrawer} />
                     </Sidebar>
                 )}
 
-                <Stack spacing={0} sx={{ width: '100%' }}>
+                <Stack
+                    spacing={0}
+                    sx={{ width: '100%' }}
+                >
                     <AppBar
                         position="static"
                         sx={{
@@ -137,7 +139,10 @@ const Layout = ({ userName }) => {
                                     open={drawerOpen}
                                     onClose={toggleDrawer(false)}
                                 >
-                                    <NavMenu toggleDrawer={toggleDrawer} isTablet={isTablet} />
+                                    <NavMenu
+                                        toggleDrawer={toggleDrawer}
+                                        isTablet={isTablet}
+                                    />
                                 </Drawer>
                             )}
 
@@ -207,6 +212,7 @@ const Layout = ({ userName }) => {
         </React.Fragment>
     );
 };
+
 
 Layout.propTypes = {
     userName: PropTypes.string,

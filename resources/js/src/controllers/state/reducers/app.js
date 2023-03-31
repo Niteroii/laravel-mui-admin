@@ -1,5 +1,4 @@
 
-
 const INITIAL_STATE = {
     loaded: false,
     user: null,

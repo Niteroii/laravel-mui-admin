@@ -26,7 +26,7 @@ class App {
     #router;
     #state;
 
-    constructor() {
+    constructor () {
         this.#auth = auth;
         this.#dialog = dialog;
         this.#notifications = notifications;
@@ -55,13 +55,13 @@ class App {
                             </ProSidebarProvider>
                         </ReduxProvider>
                     </React.StrictMode>,
-                    rootElement
+                    rootElement,
                 );
 
                 window.addEventListener('load', () => {
                     state.dispatch({
                         type: 'APP_LOADED',
-                        payload: {}
+                        payload: {},
                     });
                 });
 
@@ -73,32 +73,29 @@ class App {
                 });
             });
 
-
         }
 
     }
 
-    get auth() {
+    get auth () {
         return this.#auth;
     }
 
-    get dialog() {
+    get dialog () {
         return this.#dialog;
     }
 
-    get notifications() {
+    get notifications () {
         return this.#notifications;
     }
 
-    get router() {
+    get router () {
         return this.#router;
     }
 
-    get state() {
+    get state () {
         return this.#state;
     }
-
-
 
 }
 

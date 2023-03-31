@@ -6,7 +6,6 @@ const NOTIFICATION_TIMEOUT = 10000;
 
 class Notifications {
 
-
     create = (message, type = 'info') => {
 
         const key = uuidv4();
@@ -16,8 +15,8 @@ class Notifications {
             payload: {
                 key,
                 message,
-                type
-            }
+                type,
+            },
         });
 
         setTimeout(() => this.dismiss(key), NOTIFICATION_TIMEOUT);

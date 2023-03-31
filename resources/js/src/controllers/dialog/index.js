@@ -1,16 +1,15 @@
 
 // import React from 'react';
 
-
 class Dialog {
 
     onShow = null;
 
-    show = (options) => {
+    show = (options) =>
 
-        // const { message, type = 'alert', title = '' } = options;
+    // const { message, type = 'alert', title = '' } = options;
 
-        return new Promise((resolve) => {
+        new Promise((resolve) => {
 
             if (typeof this.onShow === 'function') {
                 this.onShow({
@@ -19,19 +18,15 @@ class Dialog {
                 });
             }
 
-        });
-    };
+        })
+        ;
 
-    alert = (message) => this.show({
-        message
-    });
+    alert = (message) => this.show({ message });
 
     confirm = (message) => this.show({
         message,
         type: 'confirm',
     });
-
-
 
 }
 

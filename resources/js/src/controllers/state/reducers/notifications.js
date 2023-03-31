@@ -37,14 +37,12 @@ export default (state = INITIAL_STATE, action) => {
                 items: [
                     action.payload,
                     ...state.items,
-                ]
+                ],
             };
 
         case 'NOTIFICATIONS_DISMISS':
 
-            return {
-                items: state.items.filter((item) => item.key !== action.payload)
-            };
+            return { items: state.items.filter((item) => item.key !== action.payload) };
 
         default:
             return state;

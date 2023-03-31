@@ -1,8 +1,6 @@
 import React from 'react';
 
-
 export default () => {
-
 
     const [height, setHeight] = React.useState(window.innerHeight);
 

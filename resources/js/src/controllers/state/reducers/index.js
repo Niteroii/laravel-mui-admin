@@ -10,6 +10,5 @@ const rootReducer = combineReducers({
     resources,
 });
 
-
 export default rootReducer;
 

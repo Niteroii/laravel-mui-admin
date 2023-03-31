@@ -16,23 +16,20 @@ class State {
 
     #store;
 
-    constructor(preloadedState) {
+    constructor (preloadedState) {
         this.#store = configureStore({
             reducer: rootReducer,
-            middleware: (getDefaultMiddleware) =>
-                getDefaultMiddleware().concat(loggerMiddleware),
+            middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
             preloadedState,
         });
     }
 
-    get store() {
+    get store () {
 
         return this.#store;
     }
 
-    dispatch = (action) => {
-        return this.#store.dispatch(action);
-    };
+    dispatch = (action) => this.#store.dispatch(action);
 
 }
 

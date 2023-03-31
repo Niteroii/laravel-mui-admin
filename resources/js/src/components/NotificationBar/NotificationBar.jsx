@@ -4,18 +4,14 @@ import PropTypes from 'prop-types';
 // import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
-import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
-
 import CloseIcon from '@mui/icons-material/Close';
 
-import app from '../app';
+import Transition from './NotificationBarTransition';
+
+import app from '../../app';
 
 import { connect } from 'react-redux';
-
-const Transition = (props) => {
-    return <Slide {...props} direction="left" />;
-};
 
 const NotificationBar = ({ notifications }) => {
 

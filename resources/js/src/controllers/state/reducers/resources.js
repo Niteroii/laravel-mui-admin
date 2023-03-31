@@ -1,10 +1,5 @@
 
-
-const INITIAL_STATE = {
-    items: {
-
-    },
-};
+const INITIAL_STATE = { items: {} };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -14,18 +9,16 @@ export default (state = INITIAL_STATE, action) => {
                     ...state.items,
                     [action.payload.entity]: {
                         ...(state.items[action.payload.entity] || {}),
-                        ...(action.payload.items.reduce((acc, item) => {
-                            return {
-                                ...acc,
-                                [item.id]: {
-                                    original: item,
-                                    attributes: item,
-                                    hasChanges: false,
-                                }
-                            };
-                        }, {})),
-                    }
-                }
+                        ...(action.payload.items.reduce((acc, item) => ({
+                            ...acc,
+                            [item.id]: {
+                                original: item,
+                                attributes: item,
+                                hasChanges: false,
+                            },
+                        }), {})),
+                    },
+                },
             };
 
         case 'RESOURCES_INCLUDE_ITEM':
@@ -38,9 +31,9 @@ export default (state = INITIAL_STATE, action) => {
                             original: action.payload.item,
                             attributes: action.payload.item,
                             hasChanges: false,
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             };
 
         case 'RESOURCES_EDITING':
@@ -56,9 +49,9 @@ export default (state = INITIAL_STATE, action) => {
                                 ...action.payload.item.attributes,
                             },
                             hasChanges: true,
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             };
 
         default:

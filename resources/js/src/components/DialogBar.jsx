@@ -62,7 +62,7 @@ const DialogBar = () => {
                     handleClose();
                 }
             }}
-            closeAfterTransition={true}
+            closeAfterTransition
         // onEnded={() => console.log('onEnded')}
         >
             {title && (
