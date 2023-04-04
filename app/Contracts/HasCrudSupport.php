@@ -4,13 +4,10 @@ namespace App\Contracts;
 
 trait HasCrudSupport
 {
-
-
     public function getFillable()
     {
         return $this->fillable;
     }
-
 
     public function getFieldsDefinition($schema = 'default'): array
     {

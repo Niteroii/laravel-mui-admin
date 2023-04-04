@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App;
 use Illuminate\Console\Command;
-use Str;
 
 class MakeReactComponent extends Command
 {
@@ -45,6 +44,7 @@ class MakeReactComponent extends Command
     {
         if (App::environment('production')) {
             $this->error('Command not for production');
+
             return 1;
         }
 
@@ -56,9 +56,9 @@ class MakeReactComponent extends Command
 
         $folder = $page ? 'pages' : 'components';
 
-
         if (file_exists(base_path() . "/resources/js/src/$folder/$name.js")) {
             $this->error('Já existe um componente com este nome.');
+
             return 1;
         }
 
@@ -68,8 +68,8 @@ class MakeReactComponent extends Command
         $afterComponent = '';
         $exports = $connected ? "connect(mapStateToProps)($name)" : $name;
 
-        $wrapperOpenTag = "        <React.Fragment>";
-        $wrapperCloseTag = "        </React.Fragment>";
+        $wrapperOpenTag = '        <React.Fragment>';
+        $wrapperCloseTag = '        </React.Fragment>';
 
         if ($propTypes) {
             $imports .= "import PropTypes from 'prop-types';\n";
@@ -113,6 +113,7 @@ EOT;
 
         if (!$written) {
             $this->error('Houve um erro ao gravar o arquivo');
+
             return 1;
         }
         $this->info('Componente criado com sucesso em ' . $filename);

@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\File;
 
 class ApiService
 {
-
-    static function getModelsWithCrudSupport(): Collection
+    public static function getModelsWithCrudSupport(): Collection
     {
         // this function result should be cached
 
@@ -33,7 +32,6 @@ class ApiService
                 $valid = false;
 
                 if (class_exists($class)) {
-
                     $reflection = new \ReflectionClass($class);
 
                     $valid = $reflection->isSubclassOf(Model::class) &&
@@ -47,7 +45,7 @@ class ApiService
         return $models->values();
     }
 
-    static function routes()
+    public static function routes()
     {
     }
 }

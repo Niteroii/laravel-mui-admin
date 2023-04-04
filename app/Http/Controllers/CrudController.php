@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class CrudController extends Controller
 {
+    protected $entity;
 
     public function loadEntity($entity)
     {
     }
-
 
     /**
      * Mostra a lista de todos os itens.
@@ -19,7 +19,6 @@ class CrudController extends Controller
      */
     public function index(Request $request, $entity)
     {
-
         $request->validate([
             'page' => 'integer',
             'per_page' => 'integer',
@@ -46,8 +45,7 @@ class CrudController extends Controller
     }
 
     /**
-     * 
-     * @return \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function beginQuery()
     {
@@ -62,7 +60,6 @@ class CrudController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validateForCreate($request);
 
         $item = $this->create();
@@ -75,7 +72,7 @@ class CrudController extends Controller
 
         return response()->json(['message' => 'OK'], 200);
 
-        // return redirect('/users'); 
+        // return redirect('/users');
     }
 
     /**
@@ -91,7 +88,6 @@ class CrudController extends Controller
         return response()->json($item, 200);
     }
 
-
     /**
      * Faz o update dos itens cadastrados.
      *
@@ -100,7 +96,6 @@ class CrudController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $this->validateForUpdate($request);
 
         $item = $this->beginQuery()->findOrFail($id);
@@ -112,10 +107,10 @@ class CrudController extends Controller
         $this->afterModelSaved($request, $item);
 
         return response()->json([
-            'message' => 'OK'
+            'message' => 'OK',
         ], 200);
 
-        // return view('users.show')->with('user',$user); 
+        // return view('users.show')->with('user',$user);
     }
 
     /**
@@ -126,7 +121,6 @@ class CrudController extends Controller
      */
     public function destroy($id)
     {
-
         $item = $this->beginQuery()->findOrFail($id);
 
         $item->delete();
@@ -137,9 +131,9 @@ class CrudController extends Controller
     }
 
     /**
-     * Cria uma entity para a controller
-     * 
-     * @return \Illuminate\Database\Eloquent\Model 
+     * Cria uma entity para a controller.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function create()
     {
@@ -147,12 +141,11 @@ class CrudController extends Controller
     }
 
     /**
-     * 
-     * Preenche uma entidade com os dados da requisição
-     * 
-     * @param Request $request 
+     * Preenche uma entidade com os dados da requisição.
+     *
+     * @param Request $request
      * @param \Illuminate\Database\Eloquent\Model $item Item a ser preenchido
-     * @return void 
+     * @return void
      */
     public function fill(Request $request, $item)
     {
@@ -160,12 +153,11 @@ class CrudController extends Controller
     }
 
     /**
-     * 
-     * Executa a busca no conjunto de dados
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query 
-     * @param string $search 
-     * @return \Illuminate\Database\Eloquent\Builder 
+     * Executa a busca no conjunto de dados.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $search
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function search($query, $search)
     {
@@ -173,12 +165,11 @@ class CrudController extends Controller
     }
 
     /**
-     * 
-     * Dispara após o salvamento de um model
-     * 
-     * @param Request $request 
-     * @param \Illuminate\Database\Eloquent\Model $item 
-     * @return void 
+     * Dispara após o salvamento de um model.
+     *
+     * @param Request $request
+     * @param \Illuminate\Database\Eloquent\Model $item
+     * @return void
      */
     public function afterModelSaved(Request $request, $item)
     {

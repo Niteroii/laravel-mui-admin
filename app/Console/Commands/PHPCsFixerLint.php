@@ -2,17 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Services\ApiService;
 use Illuminate\Console\Command;
 
-class DebugDev extends Command
+class PHPCsFixerLint extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'debug:dev';
+    protected $signature = 'lint:fix';
 
     /**
      * The console command description.
@@ -38,15 +37,14 @@ class DebugDev extends Command
      */
     public function handle()
     {
-        $classes = ApiService::getModelsWithCrudSupport();
+        exec('php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php-cs-fixer.php', $output, $return);
 
-        $classes->each(function ($class) {
-            // $class::
-            $model = new $class();
+        foreach ($output as $line) {
+            $this->info($line);
+        }
+        // print_r($output);
 
-            dd($model->getFillable());
-        });
-        // print_r($classes);
+        // print_r($return);
 
         return 0;
     }
