@@ -15,6 +15,9 @@ class CrudController extends Controller
     /**
      * Mostra a lista de todos os itens.
      *
+     * @param \Illuminate\Http\Request $request Requisição injetada pelo Laravel
+     * @param string                   $entity  Nome da entidade
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, $entity)
@@ -55,7 +58,6 @@ class CrudController extends Controller
     /**
      * Realiza um novo cadastro de item.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -79,6 +81,7 @@ class CrudController extends Controller
      * Faz a listagem de um item específico.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -91,7 +94,8 @@ class CrudController extends Controller
     /**
      * Faz o update dos itens cadastrados.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param mixed $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -117,6 +121,8 @@ class CrudController extends Controller
      * Deleta um item cadastrado.
      *
      * @param \Illuminate\Http\Request $request
+     * @param mixed                    $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -143,9 +149,7 @@ class CrudController extends Controller
     /**
      * Preenche uma entidade com os dados da requisição.
      *
-     * @param Request $request
      * @param \Illuminate\Database\Eloquent\Model $item Item a ser preenchido
-     * @return void
      */
     public function fill(Request $request, $item)
     {
@@ -156,7 +160,8 @@ class CrudController extends Controller
      * Executa a busca no conjunto de dados.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $search
+     * @param string                                $search
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function search($query, $search)
@@ -167,9 +172,7 @@ class CrudController extends Controller
     /**
      * Dispara após o salvamento de um model.
      *
-     * @param Request $request
      * @param \Illuminate\Database\Eloquent\Model $item
-     * @return void
      */
     public function afterModelSaved(Request $request, $item)
     {

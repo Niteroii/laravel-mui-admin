@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App;
 use Illuminate\Console\Command;
+
+define('new_const', 'foo');
 
 class MakeReactComponent extends Command
 {
+    const new_const = 'foo';
+
     /**
      * The name and signature of the console command.
      *
@@ -27,8 +30,6 @@ class MakeReactComponent extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -42,7 +43,7 @@ class MakeReactComponent extends Command
      */
     public function handle()
     {
-        if (App::environment('production')) {
+        if (\App::environment('production')) {
             $this->error('Command not for production');
 
             return 1;
@@ -56,17 +57,17 @@ class MakeReactComponent extends Command
 
         $folder = $page ? 'pages' : 'components';
 
-        if (file_exists(base_path() . "/resources/js/src/$folder/$name.js")) {
+        if (file_exists(base_path() . "/resources/js/src/{$folder}/{$name}.js")) {
             $this->error('Já existe um componente com este nome.');
 
             return 1;
         }
 
-        $filename = base_path() . "/resources/js/src/$folder/$name.js";
+        $filename = base_path() . "/resources/js/src/{$folder}/{$name}.js";
 
         $imports = '';
         $afterComponent = '';
-        $exports = $connected ? "connect(mapStateToProps)($name)" : $name;
+        $exports = $connected ? "connect(mapStateToProps)({$name})" : $name;
 
         $wrapperOpenTag = '        <React.Fragment>';
         $wrapperCloseTag = '        </React.Fragment>';
@@ -74,7 +75,7 @@ class MakeReactComponent extends Command
         if ($propTypes) {
             $imports .= "import PropTypes from 'prop-types';\n";
 
-            $afterComponent .= "$name.propTypes = {\n    // appIsLoaded: PropTypes.bool.isRequired\n};\n";
+            $afterComponent .= "{$name}.propTypes = {\n    // appIsLoaded: PropTypes.bool.isRequired\n};\n";
         }
 
         if ($page) {
@@ -92,20 +93,20 @@ class MakeReactComponent extends Command
 
         $fileContents = <<<EOT
 import React from 'react';
-$imports
+{$imports}
 
-const $name = () => {
+const {$name} = () => {
 
     return (
-$wrapperOpenTag
-            Componente $name
-$wrapperCloseTag
+{$wrapperOpenTag}
+            Componente {$name}
+{$wrapperCloseTag}
     );
 };
 
-$afterComponent
+{$afterComponent}
 
-export default $exports;
+export default {$exports};
 
 EOT;
 
