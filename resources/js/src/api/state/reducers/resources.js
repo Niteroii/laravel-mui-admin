@@ -42,9 +42,13 @@ export default (state = INITIAL_STATE, action = {}) => {
                     [action.payload.entity]: {
                         ...state.items[action.payload.entity] || {},
                         [action.payload.item.id]: {
-                            original: state.items[action.payload.entity][action.payload.item.id].original,
+                            original: state
+                                .items[action.payload.entity][action.payload.item.id]
+                                .original,
                             attributes: {
-                                ...state.items[action.payload.entity][action.payload.item.id].attributes,
+                                ...state
+                                    .items[action.payload.entity][action.payload.item.id]
+                                    .attributes,
                                 ...action.payload.item.attributes,
                             },
                             hasChanges: true,

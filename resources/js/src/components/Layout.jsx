@@ -41,6 +41,9 @@ import api from '../api';
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
 
+/**
+ * Lida com o logout do usuário.
+ */
 const handleLogout = () => {
     const dialogOptions = {
         title: 'Sair',
@@ -56,8 +59,14 @@ const handleLogout = () => {
     });
 };
 
+/**
+ * Componente raiz de navegação e layout.
+ *
+ * @param {object} props - Propriedades do componente.
+ * @param {string} props.userName - Nome do usuário.
+ * @component
+ */
 const Layout = ({ userName }) => {
-
     const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
     const windowHeight = useWindowHeight();
 
@@ -73,6 +82,12 @@ const Layout = ({ userName }) => {
         );
     }
 
+    /**
+     * Alterna exibição do menu lateral.
+     *
+     * @param {boolean} open - Indica se o menu lateral deve ser exibido.
+     * @return {Function} - Função que alterna o menu lateral.
+     */
     const toggleDrawer = (open) => (event) => {
         if (
             event.type === 'keydown'
@@ -170,7 +185,11 @@ const Layout = ({ userName }) => {
 
                                 <Box
                                     display="flex"
-                                    sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
+                                    sx={{
+                                        height: '100%',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}
                                 >
                                     <Typography
                                         variant="body3"

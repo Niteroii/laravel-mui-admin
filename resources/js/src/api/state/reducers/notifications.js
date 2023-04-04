@@ -18,19 +18,8 @@ const INITIAL_STATE = {
     ],
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action = {}) => {
     switch (action.type) {
-        // case 'APP_LOADED':
-        //     return {
-        //         ...state,
-        //         loaded: true,
-        //     };
-
-        // case 'APP_CREDENTIALS':
-        //     return {
-        //         ...state,
-        //         user: action.payload,
-        //     };
         case 'NOTIFICATIONS_CREATE':
             return {
                 items: [

@@ -22,8 +22,8 @@ module.exports = {
                 "FunctionDeclaration": true,
                 "MethodDefinition": true,
                 "ClassDeclaration": true,
-                "ArrowFunctionExpression": true,
-                "FunctionExpression": true
+                "ArrowFunctionExpression": false,
+                "FunctionExpression": true,
             }
         }],
         "jsdoc/check-access": 'error', // Recommended

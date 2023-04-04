@@ -1,19 +1,25 @@
-// import { applyMiddleware, compose } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
-// import thunkMiddleware from 'redux-thunk';
+// eslint-disable-next-line import/named
+import { configureStore, CombinedState } from '@reduxjs/toolkit';
 
-// import monitorReducersEnhancer from './enhancers/monitorReducers';
-// import loggerMiddleware from './middleware/logger';
 import rootReducer from './reducers';
 
 import { createLogger } from 'redux-logger';
 
 const loggerMiddleware = createLogger({ /* ...options */ });
 
+/**
+ * Classe que representa o estado da aplicação.
+ * Utiliza o Redux para gerenciar o estado global.
+ */
 class State {
 
     #store;
 
+    /**
+     * Criar um novo estado.
+     *
+     * @param {object} preloadedState - Estado pré-carregado.
+     */
     constructor(preloadedState) {
         this.#store = configureStore({
             reducer: rootReducer,
@@ -22,6 +28,11 @@ class State {
         });
     }
 
+    /**
+     * Obter o redux store.
+     *
+     * @return {CombinedState} - O redux store.
+     */
     get store() {
         return this.#store;
     }

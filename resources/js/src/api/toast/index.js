@@ -3,9 +3,22 @@ import state from '../state';
 
 const NOTIFICATION_TIMEOUT = 10000;
 
-class Notifications {
+/**
+ * Serviço de notificações toast.
+ *
+ * TODO - incluir funcionalidade de notificações push.
+ */
+class Toast {
 
-    create = (message, type = 'info') => {
+    /**
+     * Cria uma nova notificação toast.
+     *
+     * @param {string} message - Mensagem da notificação.
+     * @param {'success'|'error'|'info'|'warning'} type - O tipo da notificação. Padrão: 'info'.
+     * @param {number} timeout - O tempo de exibição da notificação, em milissegundos.
+     * Padrão: 10000.
+     */
+    create(message, type = 'info', timeout = NOTIFICATION_TIMEOUT) {
         const key = uuidv4();
 
         state.dispatch({
@@ -17,25 +30,68 @@ class Notifications {
             },
         });
 
-        setTimeout(() => this.dismiss(key), NOTIFICATION_TIMEOUT);
-    };
+        setTimeout(() => this.dismiss(key), timeout);
+    }
 
-    success = (message) => this.create(message, 'success');
-    error = (message) => this.create(message, 'error');
-    info = (message) => this.create(message, 'info');
-    warning = (message) => this.create(message, 'warning');
+    /**
+     * Cria uma nova notificação toast de sucesso.
+     *
+     * @param {string} message - Mensagem da notificação.
+     */
+    success(message) {
+        this.create(message, 'success');
+    }
 
-    dismiss = (key) => this.constructor.dispatchDismiss(key);
+    /**
+     * Criar uma nova notificação toast de erro.
+     *
+     * @param {string} message - Mensagem da notificação.
+     */
+    error(message) {
+        this.create(message, 'error');
+    }
 
-    static dispatchDismiss = (key) => {
+    /**
+     * Criar uma nova notificação toast de informação.
+     *
+     * @param {string} message - Mensagem da notificação.
+     */
+    info(message) {
+        this.create(message, 'info');
+    }
+
+    /**
+     * Criar uma nova notificação toast de aviso.
+     *
+     * @param {string} message - Mensagem da notificação.
+     */
+    warning(message) {
+        this.create(message, 'warning');
+    }
+
+    /**
+     * Dispensar uma notificação toast.
+     *
+     * @param {string} key - A chave da notificação.
+     */
+    dismiss(key) {
+        this.constructor.dispatchDismiss(key);
+    }
+
+    /**
+     * Despachar uma ação para dispensar uma notificação toast.
+     *
+     * @param {string} payload - O corpo da ação.
+     */
+    static dispatchDismiss(payload) {
         state.dispatch({
             type: 'NOTIFICATIONS_DISMISS',
-            payload: key,
+            payload,
         });
-    };
+    }
 
 }
 
-const notifications = new Notifications();
+const toast = new Toast();
 
-export default notifications;
+export default toast;

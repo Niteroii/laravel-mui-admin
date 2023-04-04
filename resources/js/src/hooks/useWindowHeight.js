@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default () => {
+/**
+ * Hook que retorna a altura da janela do navegador.
+ *
+ * @return {number} - A altura da janela do navegador.
+ */
+export default function useWindowHeight() {
     const [height, setHeight] = React.useState(window.innerHeight);
 
     React.useEffect(() => {
@@ -17,4 +22,4 @@ export default () => {
     }, []);
 
     return height;
-};
+}

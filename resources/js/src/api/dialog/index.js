@@ -41,10 +41,23 @@ class Dialog {
     alert(message) {
         this.show({ message });
     }
-    confirm = (message) => this.show({
-        message,
-        type: 'confirm',
-    });
+
+    /**
+     * Exibe um diálogo de confirmação.
+     * É uma abreviação para `show({ type: 'confirm', message })`.
+     *
+     * @param {string} message - A mensagem a ser exibida.
+     * @return {Promise<boolean>} - Uma promise que será resolvida quando o
+     * diálogo for fechado. Se o usuário clicar no botão de confirmação, a promise
+     * será resolvida com `true`. Se o usuário clicar no botão de cancelamento ou
+     * fechar o diálogo clicando fora dele, a promise será resolvida com `false`.
+     */
+    confirm(message) {
+        return this.show({
+            message,
+            type: 'confirm',
+        });
+    }
 
 }
 
