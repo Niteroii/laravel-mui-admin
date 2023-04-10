@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import state from '../state';
+
+// esta dependencia devera ser removida
+import state from '../../state';
 
 const NOTIFICATION_TIMEOUT = 10000;
 

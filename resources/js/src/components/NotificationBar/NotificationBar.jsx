@@ -26,7 +26,7 @@ const NotificationBar = ({ notifications }) => {
         if (reason === 'clickaway' || !notifications.length) {
             return;
         }
-        api.notifications.dismiss(notifications[0].key);
+        api.toast.dismiss(notifications[0].key);
     };
 
     return (

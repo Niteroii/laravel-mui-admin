@@ -1,42 +1,16 @@
-import React from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 
-import { createBrowserRouter, BrowserRouter } from 'react-router-dom';
+import authenticated from './authenticated';
+import guest from './guest';
 
-import Layout from '../components/Layout';
-import HomePage from '../pages/HomePage';
+const routers = {
+    authenticated,
+    guest,
+};
 
-/**
- * Classe responsável por gerenciar as rotas da aplicação.
- *
- */
-class Router {
-
-    #routes = [
-        {
-            path: '/',
-            element: <Layout />,
-            // component: Layout,
-            children: [
-                {
-                    path: '/',
-                    element: <HomePage />,
-                },
-
-            ],
-        },
-    ];
-
-    /**
-     * Criar o objeto BrowserRouter.
-     *
-     * @return {BrowserRouter} Retorna o objeto BrowserRouter.
-     */
-    createRouter() {
-        return createBrowserRouter(this.#routes);
+export default (rendererName) => {
+    if (!Object.keys(routers).includes(rendererName)) {
+        throw new Error(`Could not find router for renderer: ${rendererName}`);
     }
-
-}
-
-const router = new Router();
-
-export default router;
+    return createBrowserRouter(routers[rendererName]);
+};

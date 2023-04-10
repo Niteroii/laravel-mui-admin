@@ -1,0 +1,28 @@
+// Arquivo para actions criadas dentro do redux
+
+// app:
+export const APP_LOADED = 'APP_LOADED';
+export const APP_DEFINE_SITE_AREA = 'APP_DEFINE_SITE_AREA';
+
+// auth:
+export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_ONBOARDING_COMPLETE = 'AUTH_ONBOARDING_COMPLETE';
+export const AUTH_PROFILE_UPDATED = 'AUTH_PROFILE_UPDATED';
+
+// notifications
+export const NOTIFICATION_CREATE = 'NOTIFICATION_CREATE';
+export const NOTIFICATION_DISMISS = 'NOTIFICATION_DISMISS';
+
+// subject
+export const SUBJECT_SET_ITEM = 'SUBJECT_SET_ITEM';
+export const SUBJECT_SET_PARENT = 'SUBJECT_SET_PARENT';
+export const SUBJECT_CLEAR = 'SUBJECT_CLEAR';
+export const SUBJECT_ITEM_DELETED = 'SUBJECT_ITEM_DELETED';
+export const SUBJECT_DELETION_REFLECTED = 'SUBJECT_DELETION_REFLECTED';
+
+// objects
+export const OBJECT_UPDATE_DATA = 'OBJECT_UPDATE_DATA';
+
+// dashboard
+export const DASHBOARD_SET_QUERY = 'DASHBOARD_SET_QUERY';

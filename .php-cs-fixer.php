@@ -37,7 +37,7 @@ $rules = [
     ],
     'constant_case' => ['case' => 'lower'],
     'declare_equal_normalize' => true,
-    'elseif' => true,
+    'elseif' => false,
     'encoding' => true,
     'full_opening_tag' => true,
     'fully_qualified_strict_types' => true, // added by Shift

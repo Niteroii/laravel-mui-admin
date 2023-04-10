@@ -13,11 +13,13 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
  |
  */
 
-mix.js('resources/js/main.js', 'public/js')
+mix.js([
+    'resources/js/guest.js',
+    'resources/js/authenticated.js',
+], 'public/js')
     .sourceMaps(false)
     .react()
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/guest.scss', 'public/css')
     .webpackConfig({
         plugins: [
             new CircularDependencyPlugin({

@@ -4,20 +4,37 @@ import ReactDOM from 'react-dom';
 import { RouterProvider } from 'react-router-dom';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { Provider as ReduxProvider } from 'react-redux';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
 
-import router from './router';
+import createRouter from './router';
 import api from './api';
+
+const theme = createTheme(api.config.theme);
 
 export default {
 
-    renderMainApp: (rootElement) => {
+    authenticated: (rootElement) => {
         ReactDOM.render(
             <React.StrictMode>
                 <ReduxProvider store={api.state.store}>
                     <ProSidebarProvider>
-                        <ThemeProvider theme={api.theme}>
-                            <RouterProvider router={router.createRouter()} />
+                        <ThemeProvider theme={theme}>
+                            <RouterProvider router={createRouter('authenticated')} />
+                        </ThemeProvider>
+                    </ProSidebarProvider>
+                </ReduxProvider>
+            </React.StrictMode>,
+            rootElement,
+        );
+    },
+
+    guest: (rootElement) => {
+        ReactDOM.render(
+            <React.StrictMode>
+                <ReduxProvider store={api.state.store}>
+                    <ProSidebarProvider>
+                        <ThemeProvider theme={theme}>
+                            <RouterProvider router={createRouter('guest')} />
                         </ThemeProvider>
                     </ProSidebarProvider>
                 </ReduxProvider>

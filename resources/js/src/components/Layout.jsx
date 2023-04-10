@@ -34,8 +34,6 @@ import Loading from './Loading';
 import NotificationBar from './NotificationBar/NotificationBar';
 import DialogBar from './DialogBar';
 
-import useWindowHeight from '../hooks/useWindowHeight';
-import dialog from '../api/dialog';
 import api from '../api';
 
 const APP_BAR_HEIGHT = 64;
@@ -52,7 +50,7 @@ const handleLogout = () => {
         confirmText: 'Sim',
         cancelText: 'Não',
     };
-    dialog.show(dialogOptions).then((result) => {
+    api.toast.show(dialogOptions).then((result) => {
         if (result) {
             api.auth.logout();
         }
@@ -68,7 +66,7 @@ const handleLogout = () => {
  */
 const Layout = ({ userName }) => {
     const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
-    const windowHeight = useWindowHeight();
+    const windowHeight = api.hooks.useWindowHeight();
 
     const { collapseSidebar } = useProSidebar();
     const [drawerOpen, setDrawerOpen] = React.useState(false);
