@@ -13,3 +13,5 @@ import createApp from './src/app';
 
 
 createApp('authenticated');    
+
+console.log('authtenticated app created');

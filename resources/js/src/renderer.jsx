@@ -31,13 +31,9 @@ export default {
     guest: (rootElement) => {
         ReactDOM.render(
             <React.StrictMode>
-                <ReduxProvider store={api.state.store}>
-                    <ProSidebarProvider>
-                        <ThemeProvider theme={theme}>
-                            <RouterProvider router={createRouter('guest')} />
-                        </ThemeProvider>
-                    </ProSidebarProvider>
-                </ReduxProvider>
+                <ThemeProvider theme={theme}>
+                    <RouterProvider router={createRouter('guest')} />
+                </ThemeProvider>
             </React.StrictMode>,
             rootElement,
         );

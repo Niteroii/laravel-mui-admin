@@ -1,5 +1,6 @@
 import auth from './@core/auth';
 import config from './config';
+import constants from './constants';
 import dialog from './@core/dialog';
 import hooks from './@core/hooks';
 import state from './state';
@@ -17,6 +18,7 @@ import toast from './@core/toast';
 export default {
     auth,
     config,
+    constants,
     dialog,
     hooks,
     state,

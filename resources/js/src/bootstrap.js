@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import axios from 'axios';
 
+console.log('running bootstrap');
+
 window._ = _;
 window.axios = axios;
 

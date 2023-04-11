@@ -13,10 +13,12 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
  |
  */
 
-mix.js([
-    'resources/js/guest.js',
-    'resources/js/authenticated.js',
-], 'public/js')
+const packageJson = require('./package.json');
+const dependencies = Object.keys(packageJson.dependencies);
+
+mix.js('resources/js/guest.js', 'public/js')
+    .js('resources/js/authenticated.js', 'public/js')
+    .extract(dependencies)
     .sourceMaps(false)
     .react()
     .sass('resources/sass/app.scss', 'public/css')

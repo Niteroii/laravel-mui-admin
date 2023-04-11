@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 
 import { Sidebar, useProSidebar } from 'react-pro-sidebar';
 import { Outlet } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 
-import NavMenu from './NavMenu';
+import NavMenu from '../NavMenu';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -26,15 +25,16 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import Loading from './Loading';
-import NotificationBar from './NotificationBar/NotificationBar';
-import DialogBar from './DialogBar';
+import Loading from '../../api/@core/components/Loading';
+import NotificationBar from '../NotificationBar/NotificationBar';
+import DialogBar from '../DialogBar';
 
-import api from '../api';
+import api from '../../api';
 
 const APP_BAR_HEIGHT = 64;
 const APP_BAR_HEIGHT_MOBILE = 56;
@@ -50,7 +50,7 @@ const handleLogout = () => {
         confirmText: 'Sim',
         cancelText: 'Não',
     };
-    api.toast.show(dialogOptions).then((result) => {
+    api.dialog.show(dialogOptions).then((result) => {
         if (result) {
             api.auth.logout();
         }
@@ -65,7 +65,7 @@ const handleLogout = () => {
  * @component
  */
 const Layout = ({ userName }) => {
-    const isTablet = useMediaQuery({ query: '(min-width: 768px)' });
+    const isTablet = useMediaQuery((theme) => theme.breakpoints.up('md'));
     const windowHeight = api.hooks.useWindowHeight();
 
     const { collapseSidebar } = useProSidebar();

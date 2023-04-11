@@ -17,4 +17,5 @@ export default {
             dark: '#fcd5d5',
         },
     },
+
 };

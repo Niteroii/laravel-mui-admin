@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Layout from '../components/Layout';
+import LayoutAuthenticated from '../components/Layout/Authenticated';
 import HomePage from '../pages/HomePage';
 
 export default [
     {
         path: '/',
-        element: <Layout />,
+        element: <LayoutAuthenticated />,
         // component: Layout,
         children: [
             {

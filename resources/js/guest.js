@@ -1,3 +1,4 @@
+
 import './src/bootstrap';
 import createApp from './src/app';
 
@@ -13,3 +14,5 @@ import createApp from './src/app';
 
 
 createApp('guest');    
+
+console.log('guest app created');

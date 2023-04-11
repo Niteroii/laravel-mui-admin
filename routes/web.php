@@ -1,5 +1,6 @@
 <?php
 
+use App\Auth\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+/**
+ * Registro das rotas de autenticação
+ * do Laravel UI.
+ *
+ * Para desabilitar alguma rota, basta
+ * remover o comentário da linha.
+ */
+Auth::routes([
+    'confirm' => false, // desabilita a rota de confirmação de senha
+    // 'register' => false, // desabilita a rota de registro
+    // 'reset' => false, // desabilita a rota de reset de senha
+    // 'verify' => false, // desabilita a rota de verificação de e-mail
+]);
 
 Route::middleware(['auth:sanctum'])->get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

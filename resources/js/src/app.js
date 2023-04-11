@@ -5,6 +5,8 @@ import renderer from './renderer';
 import api from './api';
 
 export default (rendererName) => {
+    console.log('renderer name', rendererName);
+
     if (!Object.keys(renderer).includes(rendererName)) {
         throw new Error(`Renderer ${rendererName} is not defined.`);
     }
@@ -27,12 +29,14 @@ export default (rendererName) => {
                 });
             });
 
-            axios.get('/api/me').then((response) => {
-                api.state.dispatch({
-                    type: 'APP_CREDENTIALS',
-                    payload: response.data,
+            if (rendererName === 'authenticated') {
+                axios.get('/api/me').then((response) => {
+                    api.state.dispatch({
+                        type: 'APP_CREDENTIALS',
+                        payload: response.data,
+                    });
                 });
-            });
+            }
 
             renderer[rendererName](rootElement);
         });
