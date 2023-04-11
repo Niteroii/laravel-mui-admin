@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-// esta dependencia devera ser removida
-import state from '../../state';
-
 const NOTIFICATION_TIMEOUT = 10000;
 
 /**
@@ -11,6 +8,10 @@ const NOTIFICATION_TIMEOUT = 10000;
  * TODO - incluir funcionalidade de notificações push.
  */
 class Toast {
+
+    onShow = null;
+
+    onClose = null;
 
     /**
      * Cria uma nova notificação toast.
@@ -21,18 +22,15 @@ class Toast {
      * Padrão: 10000.
      */
     create(message, type = 'info', timeout = NOTIFICATION_TIMEOUT) {
-        const key = uuidv4();
-
-        state.dispatch({
-            type: 'NOTIFICATIONS_CREATE',
-            payload: {
-                key,
+        if (typeof this.onShow === 'function') {
+            this.onShow({
                 message,
                 type,
-            },
-        });
-
-        setTimeout(() => this.dismiss(key), timeout);
+                timeout,
+                key: uuidv4(),
+            });
+        }
+        // setTimeout(() => this.dismiss(), timeout);
     }
 
     /**
@@ -74,22 +72,11 @@ class Toast {
     /**
      * Dispensar uma notificação toast.
      *
-     * @param {string} key - A chave da notificação.
      */
-    dismiss(key) {
-        this.constructor.dispatchDismiss(key);
-    }
-
-    /**
-     * Despachar uma ação para dispensar uma notificação toast.
-     *
-     * @param {string} payload - O corpo da ação.
-     */
-    static dispatchDismiss(payload) {
-        state.dispatch({
-            type: 'NOTIFICATIONS_DISMISS',
-            payload,
-        });
+    dismiss() {
+        if (typeof this.onClose === 'function') {
+            this.onClose();
+        }
     }
 
 }

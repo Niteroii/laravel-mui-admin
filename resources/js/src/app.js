@@ -1,8 +1,5 @@
 import axios from 'axios';
-
 import renderer from './renderer';
-
-import api from './api';
 
 export default (rendererName) => {
     console.log('renderer name', rendererName);
@@ -19,26 +16,10 @@ export default (rendererName) => {
     const rootElement = document.getElementById('root');
 
     if (rootElement) {
-    // start app
+        // Makes sure that the CSRF token is sent with every request.
+        axios.get('/sanctum/csrf-cookie');
 
-        axios.get('/sanctum/csrf-cookie').then(() => {
-            window.addEventListener('load', () => {
-                api.state.dispatch({
-                    type: 'APP_LOADED',
-                    payload: {},
-                });
-            });
-
-            if (rendererName === 'authenticated') {
-                axios.get('/api/me').then((response) => {
-                    api.state.dispatch({
-                        type: 'APP_CREDENTIALS',
-                        payload: response.data,
-                    });
-                });
-            }
-
-            renderer[rendererName](rootElement);
-        });
+        // Render the app.
+        renderer[rendererName](rootElement);
     }
 };

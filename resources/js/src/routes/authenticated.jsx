@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LayoutAuthenticated from '../components/Layout/Authenticated';
-import HomePage from '../pages/HomePage';
+import LayoutAuthenticated from '../views/Layouts/Authenticated';
+import HomePage from '../views/HomePage';
 
 export default [
     {

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
@@ -7,33 +6,38 @@ import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 
-import Transition from './NotificationBarTransition';
+import Transition from './Transition';
 
-import api from '../../api';
+import toast from '../../toast';
 
-import { connect } from 'react-redux';
-
-const NotificationBar = ({ notifications }) => {
+const ToastProvider = () => {
     const [messageInfo, setMessageInfo] = React.useState(undefined);
 
     React.useEffect(() => {
-        if (notifications.length) {
-            setMessageInfo({ ...notifications[0] });
-        }
-    }, [notifications]);
+        toast.onShow = (message) => {
+            setMessageInfo(message);
+        };
+        toast.onClose = () => {
+            setMessageInfo(undefined);
+        };
+        return () => {
+            toast.onShow = null;
+            toast.onClose = null;
+        };
+    }, []);
 
     const handleClose = (_event, reason) => {
-        if (reason === 'clickaway' || !notifications.length) {
+        if (reason === 'clickaway') {
             return;
         }
-        api.toast.dismiss(notifications[0].key);
+        setMessageInfo(undefined);
     };
 
     return (
         <Snackbar
             key={messageInfo ? messageInfo.key : undefined}
-            open={notifications.length > 0}
-            // autoHideDuration={6000}
+            open={!!messageInfo}
+            autoHideDuration={messageInfo?.timeout || 10000}
             onClose={handleClose}
             TransitionComponent={Transition}
             TransitionProps={{ onExited: handleClose }}
@@ -61,15 +65,5 @@ const NotificationBar = ({ notifications }) => {
     );
 };
 
-NotificationBar.propTypes = {
-    notifications: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        message: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-    })),
-};
-
-const mapStateToProps = (state) => ({ notifications: state.notifications.items });
-
-export default connect(mapStateToProps)(NotificationBar);
+export default ToastProvider;
 

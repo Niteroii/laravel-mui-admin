@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import api from '../api';
+import dialog from '../dialog';
 
 const DEFAULT_OPTION_STATE = {
     message: '',
@@ -24,7 +24,7 @@ const DEFAULT_OPTION_STATE = {
  *
  * @component
  */
-const DialogBar = () => {
+const DialogProvider = () => {
     const [options, setOptions] = React.useState(DEFAULT_OPTION_STATE);
     const [open, setOpen] = React.useState(false);
 
@@ -36,12 +36,12 @@ const DialogBar = () => {
     };
 
     React.useEffect(() => {
-        api.dialog.onShow = (o) => {
+        dialog.onShow = (o) => {
             setOptions(o);
             setOpen(true);
         };
         return () => {
-            api.dialog.onShow = null;
+            dialog.onShow = null;
         };
     }, []);
 
@@ -104,4 +104,4 @@ const DialogBar = () => {
     );
 };
 
-export default DialogBar;
+export default DialogProvider;

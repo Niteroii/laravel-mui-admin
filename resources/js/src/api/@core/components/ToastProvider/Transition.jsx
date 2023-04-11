@@ -2,11 +2,11 @@ import React from 'react';
 
 import Slide from '@mui/material/Slide';
 
-const NotificationBarTransition = (props) => (
+const Transition = (props) => (
     <Slide
         {...props}
         direction="left"
     />
 );
 
-export default NotificationBarTransition;
+export default Transition;

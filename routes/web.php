@@ -1,6 +1,5 @@
 <?php
 
-use App\Auth\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*

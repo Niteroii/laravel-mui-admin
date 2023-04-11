@@ -180,6 +180,7 @@ module.exports = {
         'quote-props': ['error', 'as-needed'],
         'quotes': ['error', 'single'],
         'radix': 'error',
+        'react/destructuring-assignment': 'error',
         'react/forbid-prop-types': 'error',
         'react/jsx-boolean-value': 'error',
         'react/jsx-boolean-value': 'error',
@@ -233,5 +234,11 @@ module.exports = {
                 'extensions': ['.js', '.jsx']
             }
         }
+    },
+    'globals': {
+        'blade': false,
+        'error': false,
+        'route': false,
+        'csrf': false,
     }
 };

@@ -15,11 +15,27 @@
 <body>
     <div id="root"></div>
     @auth
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     @endauth
-
+    @if (isset($react))
+        <div id="react-injections">    
+            @foreach ($react->routes() as $key => $value)
+                <div id="route-data-{{ $key }}" data-value="{{ $value }}"></div>
+            @endforeach
+            
+            @foreach ($react->all() as $key => $value)
+                <div id="react-data-{{ $key }}" data-value="{{ is_array($value) ? json_encode($value) : $value }}" {{ is_array($value) ? 'data-json=1' : '' }}></div>
+            @endforeach
+            
+            @foreach ($react->catchables() as $errorKey)
+                @error($errorKey)
+                    <div id="error-{{ $errorKey }}" data-value="{{ $message }}"></div>
+                @enderror
+            @endforeach
+        </div>
+    @endif
      <!-- Scripts -->
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
