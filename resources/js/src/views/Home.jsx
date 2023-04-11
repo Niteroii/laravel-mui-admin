@@ -3,7 +3,7 @@ import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-const HomePage = () => (
+const Home = () => (
     <Grid
         container
         disableEqualOverflow
@@ -22,4 +22,4 @@ const HomePage = () => (
     </Grid>
 );
 
-export default HomePage;
+export default Home;

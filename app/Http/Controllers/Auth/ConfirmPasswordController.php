@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\React;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
 
 class ConfirmPasswordController extends Controller
@@ -41,8 +42,8 @@ class ConfirmPasswordController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showConfirmForm()
+    public function showConfirmForm(React $react)
     {
-        return view('guest');
+        return view('guest')->with(['react' => $react]);
     }
 }

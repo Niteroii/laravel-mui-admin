@@ -68,6 +68,14 @@ const error = (key) => {
     return el.dataset.value;
 };
 
+error.clear = () => {
+    const els = document.querySelectorAll('#react-injections [id^="error-"]');
+
+    els.forEach((el) => {
+        el.remove();
+    });
+};
+
 window.route = route;
 window.blade = blade;
 window.error = error;

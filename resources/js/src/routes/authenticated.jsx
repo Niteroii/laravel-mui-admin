@@ -1,17 +1,32 @@
 import React from 'react';
 
-import LayoutAuthenticated from '../views/Layouts/Authenticated';
-import HomePage from '../views/HomePage';
+import Suspense from '../api/@core/components/Suspense';
 
 export default [
     {
         path: '/',
-        element: <LayoutAuthenticated />,
+        element: (
+            <Suspense>
+                {React.lazy(() => import('../views/Layouts/Authenticated'))}
+            </Suspense>
+        ),
         // component: Layout,
         children: [
             {
                 path: '/',
-                element: <HomePage />,
+                element: (
+                    <Suspense>
+                        {React.lazy(() => import('../views/Home'))}
+                    </Suspense>
+                ),
+            },
+            route('verification.notice') && {
+                path: route('verification.notice'),
+                element: (
+                    <Suspense>
+                        {React.lazy(() => import('../views/Auth/Verify'))}
+                    </Suspense>
+                ),
             },
 
         ],

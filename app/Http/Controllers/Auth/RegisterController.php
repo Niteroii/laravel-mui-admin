@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\React;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,9 +45,18 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(React $react)
     {
-        return view('guest');
+        $react->catches(['name', 'email', 'password']);
+
+        if (old('name')) {
+            $react->set('old.name', old('name'));
+        }
+        if (old('email')) {
+            $react->set('old.email', old('email'));
+        }
+
+        return view('guest')->with(['react' => $react]);
     }
 
     /**

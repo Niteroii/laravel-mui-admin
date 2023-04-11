@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\React;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 
@@ -44,10 +45,10 @@ class VerificationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function show(Request $request)
+    public function show(Request $request, React $react)
     {
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
-                        : view('authenticated');
+                        : view('authenticated')->with(['react' => $react]);
     }
 }

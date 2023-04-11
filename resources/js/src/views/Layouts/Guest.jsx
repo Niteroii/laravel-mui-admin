@@ -25,6 +25,7 @@ const Guest = () => {
         >
             <Grid
                 xs={11}
+                sm={8}
                 md={6}
                 lg={4}
                 xl={3}

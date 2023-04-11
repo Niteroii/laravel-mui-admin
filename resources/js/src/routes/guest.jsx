@@ -35,14 +35,15 @@ export default [
                     </Suspense>
                 ),
             },
-            route('register') && {
-                path: route('register'),
+            route('password.reset') && {
+                path: route('password.reset', { token: ':token' }),
                 element: (
                     <Suspense>
-                        {React.lazy(() => import('../views/Auth/Register'))}
+                        {React.lazy(() => import('../views/Auth/Passwords/Reset'))}
                     </Suspense>
                 ),
             },
+
         ],
     },
 ];

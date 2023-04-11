@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\React;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -25,8 +26,8 @@ class ForgotPasswordController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showLinkRequestForm()
+    public function showLinkRequestForm(React $react)
     {
-        return view('guest');
+        return view('guest')->with(['react' => $react]);
     }
 }

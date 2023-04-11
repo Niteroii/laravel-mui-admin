@@ -1,3 +1,7 @@
 import useWindowHeight from './useWindowHeight';
+import useClearErrorsOnExit from './useClearErrorsOnExit';
 
-export default { useWindowHeight };
+export default {
+    useWindowHeight,
+    useClearErrorsOnExit,
+};
