@@ -3,6 +3,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import authenticated from './authenticated';
 import guest from './guest';
 
+/**
+ * Registra as rotas para cada renderização.
+ */
 const routers = {
     authenticated,
     guest,

@@ -32,8 +32,8 @@ Além da instalação e configuração dos pacotes acima, implementações inici
 
  - PHP 7.4+
  - Composer
- - Node.js 12.0+
- - Yarn
+ - Node.js 14.0+
+ - Npm
 
 ### Passo a passo
 
@@ -74,12 +74,37 @@ A estrutura de pastas do frontend é baseada no padrão de arquitetura Flux, com
     - `resources/js/src/api/models`: modelos de dados utilizados no frontend, sendo espelhos dos modelos do backend
     - `resources/js/src/api/state`: espaço para criação de estados globais do Redux
 
+## Documentação
+
+ - [Laravel](https://laravel.com/docs/8.x)
+ - [React](https://reactjs.org/docs/getting-started.html)
+ - [Material UI](https://mui.com/material-ui/getting-started/overview/)
+ - [Redux](https://redux.js.org/introduction/getting-started)
+ - [React Router](https://reactrouter.com/en/6.10.0)
+
+## Guias
+ 
+ - [Customizando o tema](./.docs/guides/customizando-o-tema.md)
+ - [Criando uma renderização](./.docs/guides/criando-uma-renderizacao.md)
+ - [Criando uma página](./.docs/guides/criando-uma-pagina.md)
+ - [Utilizando `Toast` e `Dialog`](./.docs/guides/utilizando-toast-e-dialog.md)
+ - [Comunicando com a API](./.docs/guides/comunicando-com-a-api.md)
+ - [Criando um CRUD](./.docs/guides/criando-um-crud.md)
+ - [Gerenciando permissões](./.docs/guides/gerenciando-permissoes.md)
+ - [Criando um componente](./.docs/guides/criando-um-componente.md)
+ - [Criando um estado global](./.docs/guides/criando-um-estado-global.md)
+ - [Criando um formulário](./.docs/guides/criando-um-formulario.md)
+ - [Criando uma tradução](./.docs/guides/criando-uma-traducao.md)
+ - [Componentes do Projeto](./.docs/guides/componentes-do-projeto.md)
+ - [Funções Globais](./.docs/guides/funcoes-globais.md)
+ - [Hooks do projeto](./.docs/guides/hooks-do-projeto.md)
+
 ## Roadmap
 
-[ ] Implantação i18n
-[ ] Lapidação das funções helper globais
-[ ] Sistema de funções de usuários
-[ ] Gerenciar dados CRUD com fácil implantação
-[ ] Área de perfil do usuário
-[ ] Documentação
-[ ] Suporte a testes unitários
+ - [ ] Implantação i18n
+ - [ ] Lapidação das funções helper globais
+ - [ ] Sistema de funções de usuários
+ - [ ] Gerenciar dados CRUD com fácil implantação
+ - [ ] Área de perfil do usuário
+ - [ ] Documentação
+ - [ ] Suporte a testes unitários
