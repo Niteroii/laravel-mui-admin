@@ -87,7 +87,7 @@ A estrutura de pastas do frontend visa replicar a arquitetura do próprio Larave
  - Início
     - [Customizando o tema](./.docs/guides/customizando-o-tema.md)
     - [Criando uma renderização](./.docs/guides/criando-uma-renderizacao.md)
-    - [Criando uma página/componente](./.docs/guides/criando-uma-pagina.md)
+    - [Criando páginas, rotas e componentes](./.docs/guides/criando-uma-pagina.md)
  - Construindo a aplicação
     - [Comunicando com a API](./.docs/guides/comunicando-com-a-api.md)
     - [Criando um CRUD](./.docs/guides/criando-um-crud.md)

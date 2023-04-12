@@ -2,7 +2,7 @@
 
 ## Introdução
 
-Entende-se por uma renderização uma raiz em que será renderizado o React. Dentro de uma renderização, é possível criar várias páginas a partir de rotas caso a renderização utilize o React Router.
+Entende-se por uma renderização uma raiz em que será renderizada uma árvore de componentes React. Dentro de uma renderização, é possível criar várias páginas a partir de rotas caso a renderização utilize o React Router.
 
 ## Renderizações incluídas
 
