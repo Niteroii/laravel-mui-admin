@@ -6,11 +6,12 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { Link } from 'react-router-dom';
 import api from '../../api';
+import CsrfToken from '../../api/@core/components/CsrfToken';
 
 export const Login = () => {
     api.hooks.useClearErrorsOnExit();
@@ -29,7 +30,7 @@ export const Login = () => {
                 >
                     Criar conta
                 </Typography>
-                <Stack>
+                <Stack spacing={2}>
                     <TextField
                         fullWidth
                         label="Nome"
@@ -37,13 +38,12 @@ export const Login = () => {
                         type="name"
                         autoComplete="name"
                         defaultValue={blade('old.name') || ''}
+                        error={!!error('name')}
                         required
-                        sx={{ mb: 2 }}
                     />
                     {error('name') && (
                         <Alert
                             severity="error"
-                            sx={{ mb: 2 }}
                         >
                             {error('name')}
                         </Alert>
@@ -55,13 +55,12 @@ export const Login = () => {
                         type="email"
                         autoComplete="email"
                         defaultValue={blade('old.email') || ''}
+                        error={!!error('email')}
                         required
-                        sx={{ mb: 2 }}
                     />
                     {error('email') && (
                         <Alert
                             severity="error"
-                            sx={{ mb: 2 }}
                         >
                             {error('email')}
                         </Alert>
@@ -72,13 +71,12 @@ export const Login = () => {
                         name="password"
                         type="password"
                         autoComplete="new-password"
+                        error={!!error('password')}
                         required
-                        sx={{ mb: 2 }}
                     />
                     {error('password') && (
                         <Alert
                             severity="error"
-                            sx={{ mb: 2 }}
                         >
                             {error('password')}
                         </Alert>
@@ -90,9 +88,8 @@ export const Login = () => {
                         type="password"
                         autoComplete="new-password"
                         required
-                        sx={{ mb: 2 }}
                     />
-                    {csrf()}
+                    <CsrfToken />
                 </Stack>
             </CardContent>
             <CardActions

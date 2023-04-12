@@ -24,7 +24,7 @@ Auth::routes([
     'confirm' => false, // desabilita a rota de confirmação de senha
     // 'register' => false, // desabilita a rota de registro
     // 'reset' => false, // desabilita a rota de reset de senha
-    // 'verify' => false, // desabilita a rota de verificação de e-mail
+    'verify' => true, // habilita a rota de verificação de e-mail
 ]);
 
-Route::middleware(['auth:sanctum'])->get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth:sanctum', 'verified'])->get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -2,8 +2,6 @@ import axios from 'axios';
 import renderer from './renderer';
 
 export default (rendererName) => {
-    console.log('renderer name', rendererName);
-
     if (!Object.keys(renderer).includes(rendererName)) {
         throw new Error(`Renderer ${rendererName} is not defined.`);
     }

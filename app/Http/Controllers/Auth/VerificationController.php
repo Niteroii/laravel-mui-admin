@@ -47,6 +47,12 @@ class VerificationController extends Controller
      */
     public function show(Request $request, React $react)
     {
+        $react->set('block-ui', true);
+
+        if (session('resent')) {
+            $react->set('resent', true);
+        }
+
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
                         : view('authenticated')->with(['react' => $react]);

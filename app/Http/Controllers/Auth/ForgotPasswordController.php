@@ -28,6 +28,16 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm(React $react)
     {
+        if (old('email')) {
+            $react->set('old.email', old('email'));
+        }
+
+        if (session('status')) {
+            $react->set('status', session('status'));
+        }
+
+        $react->catches(['email']);
+
         return view('guest')->with(['react' => $react]);
     }
 }

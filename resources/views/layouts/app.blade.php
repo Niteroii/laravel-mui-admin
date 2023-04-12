@@ -15,12 +15,12 @@
 <body>
     <div id="root"></div>
     @auth
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
             @csrf
         </form>
     @endauth
     @if (isset($react))
-        <div id="react-injections">    
+        <div id="react-injections" style="display: none">    
             @foreach ($react->routes() as $key => $value)
                 <div id="route-data-{{ $key }}" data-value="{{ $value }}"></div>
             @endforeach
@@ -39,6 +39,6 @@
      <!-- Scripts -->
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-     @yield('script')
+    @yield('script')
 </body>
 </html>

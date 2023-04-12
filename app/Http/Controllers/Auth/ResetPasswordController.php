@@ -39,6 +39,8 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(React $react)
     {
+        $react->catches(['email', 'password']);
+
         return view('guest')->with(['react' => $react]);
     }
 }

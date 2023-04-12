@@ -1,9 +1,5 @@
-/* eslint-disable react/jsx-filename-extension */
-import React from 'react';
 import _ from 'lodash';
 import axios from 'axios';
-
-console.log('running bootstrap');
 
 window._ = _;
 window.axios = axios;
@@ -16,14 +12,6 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.axios.defaults.withCredentials = true;
-
-const csrf = () => (
-    <input
-        type="hidden"
-        name="_token"
-        value={blade('csrf')}
-    />
-);
 
 const route = (key, parameters = {}) => {
     const el = document.getElementById(`route-data-${key}`);
@@ -79,7 +67,6 @@ error.clear = () => {
 window.route = route;
 window.blade = blade;
 window.error = error;
-window.csrf = csrf;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

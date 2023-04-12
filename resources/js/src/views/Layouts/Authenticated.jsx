@@ -79,6 +79,7 @@ const Layout = () => {
         : api.config.layout.appBarHeight.mobile;
 
     const { name: userName } = React.useMemo(() => blade('user'), []);
+    const blockUi = React.useMemo(() => blade('block-ui') === '1', []);
 
     return (
         <React.Fragment>
@@ -87,7 +88,7 @@ const Layout = () => {
                 spacing={0}
                 sx={{ overflow: 'hidden', height: '100vh' }}
             >
-                {isTablet && (
+                {!blockUi && isTablet && (
                     <Sidebar
                         width="264px"
                         collapsedWidth="58px"
@@ -109,24 +110,26 @@ const Layout = () => {
                         }}
                     >
                         <Toolbar>
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="menu"
-                                sx={{ mr: 2 }}
-                                onClick={(e) => {
-                                    if (isTablet) {
-                                        collapseSidebar();
-                                        return;
-                                    }
-                                    toggleDrawer(true)(e);
-                                }}
-                            >
-                                <MenuIcon />
-                            </IconButton>
+                            {!blockUi && (
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="menu"
+                                    sx={{ mr: 2 }}
+                                    onClick={(e) => {
+                                        if (isTablet) {
+                                            collapseSidebar();
+                                            return;
+                                        }
+                                        toggleDrawer(true)(e);
+                                    }}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                            )}
 
-                            {!isTablet && (
+                            {!blockUi && !isTablet && (
                                 <Drawer
                                     anchor="left"
                                     open={drawerOpen}

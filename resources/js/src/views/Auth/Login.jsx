@@ -9,14 +9,18 @@ import CardMedia from '@mui/material/CardMedia';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Link } from 'react-router-dom';
 import api from '../../api';
+import CsrfToken from '../../api/@core/components/CsrfToken';
 
 export const Login = () => {
     api.hooks.useClearErrorsOnExit();
+
+    const isMd = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
     return (
         <Card
@@ -30,27 +34,25 @@ export const Login = () => {
                 title="Company Name"
             />
             <CardContent>
-                <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    sx={{ mb: 2 }}
-                >
-                    Login
-                </Typography>
-                <Stack >
+                <Stack spacing={2}>
+                    <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                    >
+                        Bem vindo
+                    </Typography>
                     <TextField
                         fullWidth
                         label="Email"
                         name="email"
                         type="email"
                         autoComplete="email"
-                        sx={{ mb: 2 }}
+                        error={!!error('email')}
                     />
                     {error('email') && (
                         <Alert
                             severity="error"
-                            sx={{ mb: 2 }}
                         >
                             {error('email')}
                         </Alert>
@@ -61,12 +63,11 @@ export const Login = () => {
                         name="password"
                         type="password"
                         autoComplete="current-password"
-                        sx={{ mb: 2 }}
+                        error={!!error('password')}
                     />
                     {error('password') && (
                         <Alert
                             severity="error"
-                            sx={{ mb: 2 }}
                         >
                             {error('password')}
                         </Alert>
@@ -81,7 +82,7 @@ export const Login = () => {
                         }
                     />
 
-                    {csrf()}
+                    <CsrfToken />
 
                 </Stack>
             </CardContent>
@@ -89,9 +90,14 @@ export const Login = () => {
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
+                    alignItems: 'end',
                 }}
             >
-                <div>
+                <Stack
+                    direction={isMd ? 'row' : 'column'}
+                    spacing={1}
+                    alignItems="flex-start"
+                >
                     {route('password.request') && (
                         <Button
                             component={Link}
@@ -110,7 +116,7 @@ export const Login = () => {
                             Criar conta
                         </Button>
                     )}
-                </div>
+                </Stack>
                 <Button
                     type="submit"
                     variant="contained"
