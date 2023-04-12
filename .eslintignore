@@ -1,3 +1,6 @@
 **/*.js
+**/*.jsx
+**/*.json
 !resources/js/**/*.js
 !resources/js/**/*.jsx
+!resources/js/src/lang/**/*.json

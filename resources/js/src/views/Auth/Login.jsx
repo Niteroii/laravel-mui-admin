@@ -16,11 +16,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Link } from 'react-router-dom';
 import api from '../../api';
 import CsrfToken from '../../api/@core/components/CsrfToken';
+import { useTranslation } from 'react-i18next';
 
 export const Login = () => {
     api.hooks.useClearErrorsOnExit();
 
     const isMd = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
+    const { t } = useTranslation();
 
     return (
         <Card
@@ -40,11 +43,11 @@ export const Login = () => {
                         variant="h5"
                         component="div"
                     >
-                        Bem vindo
+                        {t('Welcome')}
                     </Typography>
                     <TextField
                         fullWidth
-                        label="Email"
+                        label={t('Email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -59,7 +62,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Senha"
+                        label={t('Password')}
                         name="password"
                         type="password"
                         autoComplete="current-password"
@@ -73,7 +76,7 @@ export const Login = () => {
                         </Alert>
                     )}
                     <FormControlLabel
-                        label="Lembrar-me"
+                        label={t('Remember')}
                         control={
                             <Checkbox
                                 name="remember"
@@ -104,7 +107,7 @@ export const Login = () => {
                             size="small"
                             to={route('password.request')}
                         >
-                            Recuperar senha
+                            {t('Recover Password')}
                         </Button>
                     )}
                     {route('register') && (
@@ -113,7 +116,7 @@ export const Login = () => {
                             size="small"
                             to={route('register')}
                         >
-                            Criar conta
+                            {t('Register')}
                         </Button>
                     )}
                 </Stack>
@@ -122,7 +125,7 @@ export const Login = () => {
                     variant="contained"
                     size="small"
                 >
-                    Login
+                    {t('Login')}
                 </Button>
             </CardActions>
         </Card>

@@ -12,9 +12,14 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import api from '../../api';
 import CsrfToken from '../../api/@core/components/CsrfToken';
+import { useTranslation } from 'react-i18next';
 
 export const Login = () => {
     api.hooks.useClearErrorsOnExit();
+
+    console.log(Object.keys(api.lang.options.resources));
+
+    const { t } = useTranslation();
 
     return (
         <Card
@@ -28,12 +33,12 @@ export const Login = () => {
                     variant="h5"
                     component="div"
                 >
-                    Criar conta
+                    {t('Register')}
                 </Typography>
                 <Stack spacing={2}>
                     <TextField
                         fullWidth
-                        label="Nome"
+                        label={t('Name')}
                         name="name"
                         type="name"
                         autoComplete="name"
@@ -50,7 +55,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Email"
+                        label={t('Email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -67,7 +72,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Senha"
+                        label={t('Password')}
                         name="password"
                         type="password"
                         autoComplete="new-password"
@@ -83,7 +88,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Confirme a Senha"
+                        label={t('Confirm Password')}
                         name="password_confirmation"
                         type="password"
                         autoComplete="new-password"
@@ -103,14 +108,14 @@ export const Login = () => {
                     size="small"
                     to={route('login')}
                 >
-                    Voltar
+                    {t('Back')}
                 </Button>
                 <Button
                     type="submit"
                     variant="contained"
                     size="small"
                 >
-                    Cadastrar
+                    {t('Register')}
                 </Button>
             </CardActions>
         </Card>

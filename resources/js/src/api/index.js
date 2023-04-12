@@ -3,8 +3,8 @@ import config from './config';
 import constants from './constants';
 import dialog from './@core/dialog';
 import hooks from './@core/hooks';
+import lang from '../lang';
 import state from './state';
-
 import toast from './@core/toast';
 
 /**
@@ -21,6 +21,7 @@ export default {
     constants,
     dialog,
     hooks,
+    lang,
     state,
     toast,
 };

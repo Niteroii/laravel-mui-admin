@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     'env': {
         'browser': true,
@@ -10,6 +12,7 @@ module.exports = {
         'plugin:import/recommended',
         'plugin:import/react',
         'plugin:jsx-a11y/recommended',
+        'plugin:i18n-json/recommended',
         './.eslintrc.jsdocs.js',
     ],
     'overrides': [
@@ -26,8 +29,30 @@ module.exports = {
         'react-hooks',
         'import',
         'jsx-a11y',
+        'i18n-json',
+        '@calm/react-intl'
     ],
     'rules': {
+        '@calm/react-intl/missing-formatted-message': [2,
+            {
+              'noTrailingWhitespace': true,
+              'ignoreLinks': true,
+              'enforceLabels': false,
+              'enforceImageAlts': true,
+              'enforceInputProps': true
+            }
+        ],
+        '@calm/react-intl/missing-attribute': [2,
+            {
+                'noTrailingWhitespace': true,
+                'noSpreadOperator': true,
+                'requireDescription': false,
+                'formatDefineMessages': false,
+                'requireIdAsString': true,
+                'requireDefaultMessage': true,
+            }
+        ],
+        '@calm/react-intl/missing-values': 2,
         'array-bracket-spacing': 'error',
         'array-callback-return': 'error',
         'arrow-body-style': 'error',
@@ -49,6 +74,12 @@ module.exports = {
         'func-call-spacing': ['error', 'never'],
         'func-style': ['error', 'expression'],
         'function-paren-newline': 'error',
+        'i18n-json/identical-keys': [
+            2,
+            {
+                filePath: path.resolve('./resources/js/src/lang/translations/pt-BR.json'),
+            }
+        ],
         'implicit-arrow-linebreak': 'error',
         'import/extensions': ['error', 'never', {
             pattern: {
