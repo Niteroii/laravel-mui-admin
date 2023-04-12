@@ -60,7 +60,7 @@ O frontend é construído com React, utilizando o framework Material UI para com
 
 #### Estrutura
 
-A estrutura de pastas do frontend é baseada no padrão de arquitetura Flux, com algumas modificações para melhorar a organização e facilitar o desenvolvimento.
+A estrutura de pastas do frontend visa replicar a arquitetura do próprio Laravel, com algumas modificações para melhorar a organização e facilitar o desenvolvimento.
 
  - `resources/js`: pasta raiz do frontend
  - `resources/js/src/components`: componentes React
@@ -84,21 +84,22 @@ A estrutura de pastas do frontend é baseada no padrão de arquitetura Flux, com
 
 ## Guias
  
- - [Customizando o tema](./.docs/guides/customizando-o-tema.md)
- - [Criando uma renderização](./.docs/guides/criando-uma-renderizacao.md)
- - [Criando uma página](./.docs/guides/criando-uma-pagina.md)
- - [Utilizando `Toast` e `Dialog`](./.docs/guides/utilizando-toast-e-dialog.md)
- - [Comunicando com a API](./.docs/guides/comunicando-com-a-api.md)
- - [Criando um CRUD](./.docs/guides/criando-um-crud.md)
- - [Gerenciando permissões](./.docs/guides/gerenciando-permissoes.md)
- - [Criando um componente](./.docs/guides/criando-um-componente.md)
- - [Criando um estado global](./.docs/guides/criando-um-estado-global.md)
- - [Criando um formulário](./.docs/guides/criando-um-formulario.md)
- - [Criando uma tradução](./.docs/guides/criando-uma-traducao.md)
- - [Componentes do Projeto](./.docs/guides/componentes-do-projeto.md)
- - [Funções Globais](./.docs/guides/funcoes-globais.md)
- - [Hooks do projeto](./.docs/guides/hooks-do-projeto.md)
-
+ - Início
+    - [Customizando o tema](./.docs/guides/customizando-o-tema.md)
+    - [Criando uma renderização](./.docs/guides/criando-uma-renderizacao.md)
+    - [Criando uma página/componente](./.docs/guides/criando-uma-pagina.md)
+ - Construindo a aplicação
+    - [Comunicando com a API](./.docs/guides/comunicando-com-a-api.md)
+    - [Criando um CRUD](./.docs/guides/criando-um-crud.md)
+    - [Gerenciando permissões](./.docs/guides/gerenciando-permissoes.md)
+    - [Criando um estado global](./.docs/guides/criando-um-estado-global.md)
+    - [Criando um formulário](./.docs/guides/criando-um-formulario.md)
+    - [Criando uma tradução](./.docs/guides/criando-uma-traducao.md)
+ - Utilitários
+    - [Componentes do Projeto](./.docs/guides/componentes-do-projeto.md)
+    - [Funções Globais](./.docs/guides/funcoes-globais.md)
+    - [Hooks do projeto](./.docs/guides/hooks-do-projeto.md)
+    - [Utilizando `Toast` e `Dialog`](./.docs/guides/utilizando-toast-e-dialog.md)
 ## Roadmap
 
  - [ ] Implantação i18n

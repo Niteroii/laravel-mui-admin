@@ -39,7 +39,7 @@ const handleLogout = () => {
         confirmText: 'Sim',
         cancelText: 'Não',
     };
-    api.dialog.show(dialogOptions).then((result) => {
+    api.dialog.create(dialogOptions).then((result) => {
         if (result) {
             api.auth.logout();
         }

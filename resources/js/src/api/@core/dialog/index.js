@@ -21,7 +21,7 @@ class Dialog {
      * @return {Promise<boolean|object>} Uma promise que será resolvida quando
      * o diálogo for fechado.
      */
-    show(options) {
+    create(options) {
         return new Promise((resolve) => {
             if (typeof this.onShow === 'function') {
                 this.onShow({
@@ -34,17 +34,17 @@ class Dialog {
 
     /**
      * Exibe um diálogo de alerta.
-     * É uma abreviação para `show({ type: 'alert', message })`.
+     * É uma abreviação para `create({ type: 'alert', message })`.
      *
      * @param {string} message - A mensagem a ser exibida.
      */
     alert(message) {
-        this.show({ message });
+        this.create({ message });
     }
 
     /**
      * Exibe um diálogo de confirmação.
-     * É uma abreviação para `show({ type: 'confirm', message })`.
+     * É uma abreviação para `create({ type: 'confirm', message })`.
      *
      * @param {string} message - A mensagem a ser exibida.
      * @return {Promise<boolean>} - Uma promise que será resolvida quando o
@@ -53,7 +53,7 @@ class Dialog {
      * fechar o diálogo clicando fora dele, a promise será resolvida com `false`.
      */
     confirm(message) {
-        return this.show({
+        return this.create({
             message,
             type: 'confirm',
         });

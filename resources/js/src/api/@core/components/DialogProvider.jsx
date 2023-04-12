@@ -20,7 +20,7 @@ const DEFAULT_OPTION_STATE = {
 /**
  * Componente "sempre plugado" para `<Dialog />` do Material UI.
  *
- * Chama o método `api.dialog.show()` para exibir o diálogo.
+ * Chama o método `api.dialog.create()` para exibir o diálogo.
  *
  * @component
  */

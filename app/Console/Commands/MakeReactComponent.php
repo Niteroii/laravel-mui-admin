@@ -51,23 +51,27 @@ class MakeReactComponent extends Command
 
         $name = $this->argument('name');
 
+        $nameParts = collect(explode('/', $name));
+
+        $componentName = $nameParts->last();
+
         $connected = $this->option('connected');
         $propTypes = $this->option('prop-types');
         $page = $this->option('page');
 
-        $folder = $page ? 'pages' : 'components';
+        $folder = $page ? 'views' : 'components';
 
-        if (file_exists(base_path() . "/resources/js/src/{$folder}/{$name}.js")) {
+        if (file_exists(base_path() . "/resources/js/src/{$folder}/{$name}.jsx")) {
             $this->error('Já existe um componente com este nome.');
 
             return 1;
         }
 
-        $filename = base_path() . "/resources/js/src/{$folder}/{$name}.js";
+        $filename = base_path() . "/resources/js/src/{$folder}/{$name}.jsx";
 
         $imports = '';
         $afterComponent = '';
-        $exports = $connected ? "connect(mapStateToProps)({$name})" : $name;
+        $exports = $connected ? "connect(mapStateToProps)({$componentName})" : $componentName;
 
         $wrapperOpenTag = '        <React.Fragment>';
         $wrapperCloseTag = '        </React.Fragment>';
@@ -75,7 +79,7 @@ class MakeReactComponent extends Command
         if ($propTypes) {
             $imports .= "import PropTypes from 'prop-types';\n";
 
-            $afterComponent .= "{$name}.propTypes = {\n    // appIsLoaded: PropTypes.bool.isRequired\n};\n";
+            $afterComponent .= "{$componentName}.propTypes = {\n    // appIsLoaded: PropTypes.bool.isRequired\n};\n";
         }
 
         if ($page) {
@@ -95,11 +99,11 @@ class MakeReactComponent extends Command
 import React from 'react';
 {$imports}
 
-const {$name} = () => {
+const {$componentName} = () => {
 
     return (
 {$wrapperOpenTag}
-            Componente {$name}
+            Componente {$componentName}
 {$wrapperCloseTag}
     );
 };
@@ -109,6 +113,10 @@ const {$name} = () => {
 export default {$exports};
 
 EOT;
+
+        if (!\File::exists(dirname($filename))) {
+            \File::makeDirectory(dirname($filename), 0755, true, true);
+        }
 
         $written = file_put_contents($filename, $fileContents);
 

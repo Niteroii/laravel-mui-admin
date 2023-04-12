@@ -138,7 +138,7 @@ export default [
 ];
 ```
 
-Registre as rotas no arquivo `resources/js/src/index.js`:
+Registre as rotas no arquivo `resources/js/src/routes/index.js`:
 
 ```js
 import newRenderer from './newRenderer';
