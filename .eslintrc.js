@@ -13,6 +13,7 @@ module.exports = {
         'plugin:import/react',
         'plugin:jsx-a11y/recommended',
         'plugin:i18n-json/recommended',
+        'plugin:i18next/recommended',
         './.eslintrc.jsdocs.js',
     ],
     'overrides': [
@@ -30,29 +31,9 @@ module.exports = {
         'import',
         'jsx-a11y',
         'i18n-json',
-        '@calm/react-intl'
+        'i18next',
     ],
     'rules': {
-        '@calm/react-intl/missing-formatted-message': [2,
-            {
-              'noTrailingWhitespace': true,
-              'ignoreLinks': true,
-              'enforceLabels': false,
-              'enforceImageAlts': true,
-              'enforceInputProps': true
-            }
-        ],
-        '@calm/react-intl/missing-attribute': [2,
-            {
-                'noTrailingWhitespace': true,
-                'noSpreadOperator': true,
-                'requireDescription': false,
-                'formatDefineMessages': false,
-                'requireIdAsString': true,
-                'requireDefaultMessage': true,
-            }
-        ],
-        '@calm/react-intl/missing-values': 2,
         'array-bracket-spacing': 'error',
         'array-callback-return': 'error',
         'arrow-body-style': 'error',
@@ -78,6 +59,18 @@ module.exports = {
             2,
             {
                 filePath: path.resolve('./resources/js/src/lang/translations/pt-BR.json'),
+            }
+        ],
+        'i18next/no-literal-string': [
+            'error',
+            {
+                'mode': 'all',
+                'jsx-attributes': {
+                    'include': ['label', 'aria-label', 'placeholder', 'title', 'alt', 'value', 'defaultValue']
+                },
+                'callees': {
+                    'exclude': ['*'],
+                }
             }
         ],
         'implicit-arrow-linebreak': 'error',

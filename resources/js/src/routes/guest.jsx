@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Suspense from '../api/@core/components/Suspense';
+import Error from '../views/Error';
 
 export default [
     {
@@ -10,6 +11,7 @@ export default [
                 {React.lazy(() => import('../views/Layouts/Guest'))}
             </Suspense>
         ),
+        errorElement: <Error />,
         children: [
             route('login') && {
                 path: route('login'),
