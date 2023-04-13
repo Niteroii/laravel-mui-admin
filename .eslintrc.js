@@ -1,4 +1,3 @@
-const path = require('path');
 
 module.exports = {
     'env': {
@@ -12,9 +11,8 @@ module.exports = {
         'plugin:import/recommended',
         'plugin:import/react',
         'plugin:jsx-a11y/recommended',
-        'plugin:i18n-json/recommended',
-        'plugin:i18next/recommended',
         './.eslintrc.jsdocs.js',
+        './.eslintrc.i18n.js',
     ],
     'overrides': [
     ],
@@ -30,8 +28,6 @@ module.exports = {
         'react-hooks',
         'import',
         'jsx-a11y',
-        'i18n-json',
-        'i18next',
     ],
     'rules': {
         'array-bracket-spacing': 'error',
@@ -55,27 +51,6 @@ module.exports = {
         'func-call-spacing': ['error', 'never'],
         'func-style': ['error', 'expression'],
         'function-paren-newline': 'error',
-        'i18n-json/identical-keys': [
-            2,
-            {
-                filePath: path.resolve('./resources/js/src/lang/translations/pt-BR.json'),
-            }
-        ],
-        'i18next/no-literal-string': [
-            'error',
-            {
-                'mode': 'all',
-                'jsx-attributes': {
-                    'include': ['label', 'aria-label', 'placeholder', 'title', 'alt', 'value', 'defaultValue']
-                },
-                'object-properties': {
-                    'exclude': ['type']
-                },
-                'callees': {
-                    'exclude': ['*'],
-                }
-            }
-        ],
         'implicit-arrow-linebreak': 'error',
         'import/extensions': ['error', 'never', {
             pattern: {

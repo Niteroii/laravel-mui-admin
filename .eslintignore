@@ -3,4 +3,4 @@
 **/*.json
 !resources/js/**/*.js
 !resources/js/**/*.jsx
-!resources/js/src/lang/**/*.json
+!resources/js/src/**/*.json

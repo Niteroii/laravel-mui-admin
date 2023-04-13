@@ -33,6 +33,7 @@ export const Login = () => {
                     variant="h5"
                     component="div"
                 >
+                    Novo texto
                     {t('auth.register')}
                 </Typography>
                 <Stack spacing={2}>

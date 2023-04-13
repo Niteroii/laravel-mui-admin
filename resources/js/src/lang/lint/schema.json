@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "login": "",
+    "logout": {
+      "confirm": ""
+    },
+    "password": {
+      "confirm": "",
+      "forgot": "",
+      "new": "",
+      "reset": "",
+      "send": ""
+    },
+    "register": "",
+    "remember": ""
+  },
+  "cancel": "",
+  "error": "",
+  "navigate": {
+    "back": "",
+    "home": "",
+    "logout": "",
+    "menu": "",
+    "profile": "",
+    "settings": "",
+    "submit": ""
+  },
+  "no": "",
+  "user": {
+    "email": "",
+    "name": "",
+    "password": ""
+  },
+  "verification": {
+    "check": "",
+    "notReceived": "",
+    "notice": "",
+    "resendButton": "",
+    "resent": "."
+  },
+  "welcome": "",
+  "yes": ""
+}
