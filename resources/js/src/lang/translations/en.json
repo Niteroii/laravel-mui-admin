@@ -1,14 +1,43 @@
 {
-  "Back": "Back",
-  "Confirm Password": "Confirm Password",
-  "Email": "Email",
-  "Login": "Login",
-  "Name": "Name",
-  "Password": "Password",
-  "Recover Password": "Recover Password",
-  "Register": "Register",
-  "Remember": "Remember",
-  "Submit": "Submit",
-  "Welcome": "Welcome",
-  "Welcome to your new app!": "Welcome to your new app!"
+  "auth": {
+    "login": "Login",
+    "logout": {
+      "confirm": "Close this session?"
+    },
+    "password": {
+      "confirm": "Password confirmation",
+      "forgot": "Forgot your password?",
+      "new": "New password",
+      "reset": "Reset password",
+      "send": "Send password recovery link"
+    },
+    "register": "Register",
+    "remember": "Remember me"
+  },
+  "cancel": "Cancel",
+  "error": "Error",
+  "navigate": {
+    "back": "Back",
+    "home": "Home",
+    "logout": "Logout",
+    "menu": "Menu",
+    "profile": "Profile",
+    "settings": "Settings",
+    "submit": "Submit"
+  },
+  "no": "No",
+  "user": {
+    "email": "Email",
+    "name": "Name",
+    "password": "Password"
+  },
+  "verification": {
+    "check": "Verify Your Email Address.",
+    "notReceived": "If you did not receive any email, click the button below.",
+    "notice": "Before proceeding, please check your email for a verification link.",
+    "resendButton": "click here to request another",
+    "resent": "A fresh verification link has been sent to your email address."
+  },
+  "welcome": "Welcome",
+  "yes": "Yes"
 }

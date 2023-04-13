@@ -13,9 +13,12 @@ import { Link } from 'react-router-dom';
 
 import CsrfToken from '../../../api/@core/components/CsrfToken';
 import api from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 const Email = () => {
     api.hooks.useClearErrorsOnExit();
+
+    const { t } = useTranslation();
 
     return (
         <Card
@@ -31,7 +34,7 @@ const Email = () => {
                         variant="h5"
                         component="div"
                     >
-                        Recuperação de Senha
+                        {t('auth.password.send')}
                     </Typography>
                     {blade('status') && (
                         <Alert severity="success">
@@ -40,7 +43,7 @@ const Email = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Email"
+                        label={t('user.email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -66,7 +69,7 @@ const Email = () => {
                     size="small"
                     to={route('login')}
                 >
-                    Voltar
+                    {t('navigate.back')}
                 </Button>
                 <Button
                     sx={{ display: 'inline' }}
@@ -74,7 +77,7 @@ const Email = () => {
                     type="submit"
                     variant="contained"
                 >
-                    Enviar link
+                    {t('navigate.submit')}
                 </Button>
             </CardActions>
         </Card>

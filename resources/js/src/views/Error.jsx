@@ -38,7 +38,7 @@ const Error = () => {
                         variant="h4"
                         textAlign="center"
                     >
-                        {t('Error')}
+                        {t('error')}
                     </Typography>
                     <Divider />
                     <Typography
@@ -52,7 +52,7 @@ const Error = () => {
                     component="a"
                     href="/"
                 >
-                    {t('Back')}
+                    {t('navigate.back')}
                 </Button>
             </Grid>
         </Grid>

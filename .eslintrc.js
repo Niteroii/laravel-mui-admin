@@ -68,6 +68,9 @@ module.exports = {
                 'jsx-attributes': {
                     'include': ['label', 'aria-label', 'placeholder', 'title', 'alt', 'value', 'defaultValue']
                 },
+                'object-properties': {
+                    'exclude': ['type']
+                },
                 'callees': {
                     'exclude': ['*'],
                 }
@@ -194,7 +197,7 @@ module.exports = {
             "array": false,
             "object": true
         }, {
-                "enforceForRenamedProperties": true
+                "enforceForRenamedProperties": false
             }],
         'prefer-object-spread': 'error',
         'prefer-promise-reject-errors': 'error',

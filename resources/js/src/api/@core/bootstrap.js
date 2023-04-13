@@ -1,3 +1,4 @@
+/* eslint-disable i18next/no-literal-string */
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -13,24 +14,55 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.axios.defaults.withCredentials = true;
 
-const route = (key, parameters = {}) => {
-    const el = document.getElementById(`route-data-${key}`);
+const route = (name, replace = false) => {
+    const el = document.getElementById(`route-data-${name}`);
 
     if (!el) {
+        console.warn(`Route data was not found. Make sure '${name}' 
+is a valid route name in your routes file. Also check if you have
+'React' service injected in your controller, and passed to this route.
+\`\`\`php
+public function showPage(\\App\\Services\\React $react) {
+    return view('view-name')->with(['react' => $react])
+}
+\`\`\`
+If you are trying to check if a route exists, use 'route.exists(name)' instead.`);
         return null;
     }
 
     const { dataset } = el;
 
-    const { value: uri } = dataset;
+    let { value: url } = dataset;
 
-    const replacedUri = Object.keys(parameters).reduce(
-        (acc, key) => acc.replace(`{${key}}`, parameters[key]),
-        uri,
-    );
+    // Remove leading and trailing slashes
+    url = url.replace(/^\/|\/$/g, '');
 
-    return `/${replacedUri}`;
+    const regex = /{([^}]+)}/g;
+    const matches = url.match(regex);
+    const params = matches ? matches.map((match) => match.slice(1, -1)) : [];
+
+    if (replace === false) {
+        return `/${url.replace(regex, ':$1')}`;
+    }
+
+    const replaceKeys = Object.keys(replace);
+    const missingParams = params.filter((param) => !replaceKeys.includes(param));
+    const extraParams = replaceKeys.filter((key) => !params.includes(key));
+
+    if (missingParams.length > 0) {
+        throw new Error(`Missing values for parameter(s): ${missingParams.join(', ')}`);
+    }
+
+    if (extraParams.length > 0) {
+        throw new Error(`Unexpected parameters: ${extraParams.join(', ')}`);
+    }
+
+    const newPath = params.reduce((acc, param) => acc.replace(`{${param}}`, replace[param]), url);
+
+    return `/${newPath}`;
 };
+
+route.exists = (name) => !!document.getElementById(`route-data-${name}`);
 
 const blade = (key) => {
     const el = document.getElementById(`react-data-${key}`);

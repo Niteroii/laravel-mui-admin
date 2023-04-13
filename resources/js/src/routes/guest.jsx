@@ -13,7 +13,7 @@ export default [
         ),
         errorElement: <Error />,
         children: [
-            route('login') && {
+            route.exists('login') && {
                 path: route('login'),
                 element: (
                     <Suspense>
@@ -21,7 +21,7 @@ export default [
                     </Suspense>
                 ),
             },
-            route('register') && {
+            route.exists('register') && {
                 path: route('register'),
                 element: (
                     <Suspense>
@@ -29,7 +29,7 @@ export default [
                     </Suspense>
                 ),
             },
-            route('password.request') && {
+            route.exists('password.request') && {
                 path: route('password.request'),
                 element: (
                     <Suspense>
@@ -37,8 +37,8 @@ export default [
                     </Suspense>
                 ),
             },
-            route('password.reset') && {
-                path: route('password.reset', { token: ':token' }),
+            route.exists('password.reset') && {
+                path: route('password.reset'),
                 element: (
                     <Suspense>
                         {React.lazy(() => import('../views/Auth/Passwords/Reset'))}

@@ -27,17 +27,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import api from '../../api';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Lida com o logout do usuário.
  */
 const handleLogout = () => {
+    const { t } = api.lang;
+
     const dialogOptions = {
-        title: 'Sair',
-        message: 'Deseja realmente encerrar a sessão?',
+        title: t('Logout'),
+        message: t('Are you sure you want to logout?'),
         type: 'confirm',
-        confirmText: 'Sim',
-        cancelText: 'Não',
+        confirmText: t('Yes'),
+        cancelText: t('No'),
     };
     api.dialog.create(dialogOptions).then((result) => {
         if (result) {
@@ -81,6 +84,8 @@ const Layout = () => {
     const { name: userName } = React.useMemo(() => blade('user'), []);
     const blockUi = React.useMemo(() => blade('block-ui') === '1', []);
 
+    const { t } = useTranslation();
+
     return (
         <React.Fragment>
             <Stack
@@ -115,7 +120,7 @@ const Layout = () => {
                                     size="large"
                                     edge="start"
                                     color="inherit"
-                                    aria-label="menu"
+                                    aria-label={t('Open menu')}
                                     sx={{ mr: 2 }}
                                     onClick={(e) => {
                                         if (isTablet) {
@@ -198,7 +203,7 @@ const Layout = () => {
                                             <LogoutIcon />
                                         </ListItemIcon>
                                         <ListItemText>
-                                            Sair
+                                            {t('Logout')}
                                         </ListItemText>
                                     </MenuItem>
                                 </MenuList>

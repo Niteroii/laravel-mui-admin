@@ -24,7 +24,20 @@ Auth::routes([
     'confirm' => false, // desabilita a rota de confirmação de senha
     // 'register' => false, // desabilita a rota de registro
     // 'reset' => false, // desabilita a rota de reset de senha
-    'verify' => true, // habilita a rota de verificação de e-mail
+    // 'verify' => true, // habilita a rota de verificação de e-mail
 ]);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group([
+    'middleware' => ['auth:sanctum', 'verified'],
+], function () {
+    Route::get('/', [App\Http\Controllers\RendererController::class, 'authenticated'])
+        ->name('home');
+});
+
+Route::group([
+    'middleware' => ['auth:sanctum', 'verified'],
+    'prefix' => 'admin',
+], function () {
+    Route::get('{any}/test/{id}', [App\Http\Controllers\RendererController::class, 'authenticated'])
+        ->name('test');
+});

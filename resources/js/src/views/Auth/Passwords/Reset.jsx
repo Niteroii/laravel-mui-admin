@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import CsrfToken from '../../../api/@core/components/CsrfToken';
 import api from '../../../api';
+import { useTranslation } from 'react-i18next';
 
 const Reset = () => {
     api.hooks.useClearErrorsOnExit();
@@ -19,6 +20,8 @@ const Reset = () => {
     const { token } = useParams();
 
     const [search] = useSearchParams();
+
+    const { t } = useTranslation();
 
     return (
         <Card
@@ -34,7 +37,7 @@ const Reset = () => {
                     variant="h5"
                     component="div"
                 >
-                    Recuperação de Senha
+                    {t('auth.password.reset')}
                 </Typography>
                 <Stack spacing={2}>
                     <input
@@ -44,7 +47,7 @@ const Reset = () => {
                     />
                     <TextField
                         fullWidth
-                        label="Email"
+                        label={t('user.email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -59,7 +62,7 @@ const Reset = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Senha"
+                        label={t('user.password')}
                         name="password"
                         type="password"
                         autoComplete="new-password"
@@ -73,7 +76,7 @@ const Reset = () => {
                     )}
                     <TextField
                         fullWidth
-                        label="Confirme a Senha"
+                        label={t('auth.password.confirm')}
                         name="password_confirmation"
                         type="password"
                         autoComplete="new-password"
@@ -94,14 +97,14 @@ const Reset = () => {
                     to={route('login')}
                     size="small"
                 >
-                    Login
+                    {t('auth.login')}
                 </Button>
                 <Button
                     type="submit"
                     variant="contained"
                     size="small"
                 >
-                    Criar Senha
+                    {t('auth.password.reset')}
                 </Button>
             </CardActions>
         </Card>

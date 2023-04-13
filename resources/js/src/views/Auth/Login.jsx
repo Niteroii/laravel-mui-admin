@@ -34,7 +34,6 @@ export const Login = () => {
             <CardMedia
                 sx={{ height: 250 }}
                 image="/images/logo.webp"
-                title="Company Name"
             />
             <CardContent>
                 <Stack spacing={2}>
@@ -43,11 +42,11 @@ export const Login = () => {
                         variant="h5"
                         component="div"
                     >
-                        {t('Welcome')}
+                        {t('welcome')}
                     </Typography>
                     <TextField
                         fullWidth
-                        label={t('Email')}
+                        label={t('user.email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -62,7 +61,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label={t('Password')}
+                        label={t('user.password')}
                         name="password"
                         type="password"
                         autoComplete="current-password"
@@ -76,7 +75,7 @@ export const Login = () => {
                         </Alert>
                     )}
                     <FormControlLabel
-                        label={t('Remember')}
+                        label={t('auth.remember')}
                         control={
                             <Checkbox
                                 name="remember"
@@ -101,22 +100,22 @@ export const Login = () => {
                     spacing={1}
                     alignItems="flex-start"
                 >
-                    {route('password.request') && (
+                    {route.exists('password.request') && (
                         <Button
                             component={Link}
                             size="small"
                             to={route('password.request')}
                         >
-                            {t('Recover Password')}
+                            {t('auth.password.forgot')}
                         </Button>
                     )}
-                    {route('register') && (
+                    {route.exists('register') && (
                         <Button
                             component={Link}
                             size="small"
                             to={route('register')}
                         >
-                            {t('Register')}
+                            {t('auth.register')}
                         </Button>
                     )}
                 </Stack>
@@ -125,7 +124,7 @@ export const Login = () => {
                     variant="contained"
                     size="small"
                 >
-                    {t('Login')}
+                    {t('auth.login')}
                 </Button>
             </CardActions>
         </Card>

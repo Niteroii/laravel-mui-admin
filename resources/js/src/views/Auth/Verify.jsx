@@ -8,66 +8,71 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import CsrfToken from '../../api/@core/components/CsrfToken';
+import { useTranslation } from 'react-i18next';
 
-const Verify = () => (
-    <Grid
-        spacing={1}
-        disableEqualOverflow
-        container
-        justifyContent="center"
-        alignItems="center"
+const Verify = () => {
+    const { t } = useTranslation();
 
-    >
+    return (
         <Grid
-            xs={11}
-            sm={8}
-            md={6}
-            lg={4}
+            spacing={1}
+            disableEqualOverflow
+            container
+            justifyContent="center"
+            alignItems="center"
+
         >
-            <Card
-                component="form"
-                method="POST"
-                action={route('verification.resend')}
+            <Grid
+                xs={11}
+                sm={8}
+                md={6}
+                lg={4}
             >
-                <CsrfToken />
-                <CardContent>
-                    <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                    >
-                        Verifique seu endereço de email
-                    </Typography>
-                    {blade('resent') && (
-                        <Alert severity="success">
-                            Um novo link de verificação foi enviado para seu email.
-                        </Alert>
-                    )}
-                    <Typography>
-                        Antes de continuar, cheque seu email para um link de verificação.
-                    </Typography>
-                    <Typography>
-                        Caso não tenha recebido o email, clique no botão abaixo.
-                    </Typography>
-                </CardContent>
-                <CardActions
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
+                <Card
+                    component="form"
+                    method="POST"
+                    action={route('verification.resend')}
                 >
-                    <Button
-                        sx={{ display: 'inline' }}
-                        size="small"
-                        type="submit"
-                        variant="contained"
+                    <CsrfToken />
+                    <CardContent>
+                        <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="div"
+                        >
+                            {t('verification.check')}
+                        </Typography>
+                        {blade('resent') && (
+                            <Alert severity="success">
+                                {t('verification.resent')}
+                            </Alert>
+                        )}
+                        <Typography>
+                            {t('verification.notice')}
+                        </Typography>
+                        <Typography>
+                            {t('verification.notReceived')}
+                        </Typography>
+                    </CardContent>
+                    <CardActions
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
                     >
-                        Enviar email novamente
-                    </Button>
-                </CardActions>
-            </Card>
+                        <Button
+                            sx={{ display: 'inline' }}
+                            size="small"
+                            type="submit"
+                            variant="contained"
+                        >
+                            {t('verification.resendButton')}
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Grid>
         </Grid>
-    </Grid>
-);
+    );
+};
 
 export default Verify;

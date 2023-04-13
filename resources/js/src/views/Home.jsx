@@ -16,7 +16,7 @@ const Home = () => {
         >
             <Grid xs={12}>
                 <Typography>
-                    {t('Welcome to your new app!')}
+                    {t('welcome')}
                 </Typography>
             </Grid>
         </Grid>

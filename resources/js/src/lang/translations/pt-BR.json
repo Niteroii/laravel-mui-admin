@@ -1,14 +1,43 @@
 {
-  "Back": "Voltar",
-  "Confirm Password": "Confirmar Senha",
-  "Email": "Email",
-  "Login": "Entrar",
-  "Name": "Nome",
-  "Password": "Senha",
-  "Recover Password": "Recuperar Senha",
-  "Register": "Criar Conta",
-  "Remember": "Lembrar-me",
-  "Submit": "Enviar",
-  "Welcome": "Bem-vindo",
-  "Welcome to your new app!": "Bem-vindo a sua nova aplicação!"
+  "auth": {
+    "login": "Entrar",
+    "logout": {
+      "confirm": "Tem certeza que deseja sair?"
+    },
+    "password": {
+      "confirm": "Confirmar Senha",
+      "forgot": "Esqueceu sua senha?",
+      "new": "Nova Senha",
+      "reset": "Redefinir Senha",
+      "send": "Enviar link de redefinição de senha"
+    },
+    "register": "Criar Conta",
+    "remember": "Lembrar-me"
+  },
+  "cancel": "Cancelar",
+  "error": "Erro",
+  "navigate": {
+    "back": "Voltar",
+    "home": "Início",
+    "logout": "Sair",
+    "menu": "Menu",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "submit": "Enviar"
+  },
+  "no": "Não",
+  "user": {
+    "email": "E-mail",
+    "name": "Nome",
+    "password": "Senha"
+  },
+  "verification": {
+    "check": "Verifique seu e-mail para o link de verificação.",
+    "notReceived": "Se você não recebeu o e-mail, clique no botão abaixo.",
+    "notice": "Antes de continuar, verifique seu e-mail para um link de verificação.",
+    "resendButton": "Enviar email novamente",
+    "resent": "Um novo link de verificação foi enviado para o seu endereço de e-mail."
+  },
+  "welcome": "Bem-vindo",
+  "yes": "Sim"
 }

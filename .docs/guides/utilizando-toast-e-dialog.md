@@ -90,4 +90,4 @@ api.dialog.confirm('Deseja realmente excluir o registro?').then((response) => {
     // Cancelamento
 });
 ```
-
+> **Obs**: Para que o `Dialog` seja exibido, é necessário que o componente `DialogProvider` esteja presente na árvore de componentes. Recomendamos que seja adicionado no arquivo `resources/js/src/renderer.jsx`. Nas renderizações `guest` e `authenticated`, o `DialogProvider` já está presente.

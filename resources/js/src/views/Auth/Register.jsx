@@ -33,12 +33,12 @@ export const Login = () => {
                     variant="h5"
                     component="div"
                 >
-                    {t('Register')}
+                    {t('auth.register')}
                 </Typography>
                 <Stack spacing={2}>
                     <TextField
                         fullWidth
-                        label={t('Name')}
+                        label={t('user.name')}
                         name="name"
                         type="name"
                         autoComplete="name"
@@ -55,7 +55,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label={t('Email')}
+                        label={t('user.email')}
                         name="email"
                         type="email"
                         autoComplete="email"
@@ -72,7 +72,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label={t('Password')}
+                        label={t('user.password')}
                         name="password"
                         type="password"
                         autoComplete="new-password"
@@ -88,7 +88,7 @@ export const Login = () => {
                     )}
                     <TextField
                         fullWidth
-                        label={t('Confirm Password')}
+                        label={t('auth.password.confirm')}
                         name="password_confirmation"
                         type="password"
                         autoComplete="new-password"
@@ -108,14 +108,14 @@ export const Login = () => {
                     size="small"
                     to={route('login')}
                 >
-                    {t('Back')}
+                    {t('navigate.back')}
                 </Button>
                 <Button
                     type="submit"
                     variant="contained"
                     size="small"
                 >
-                    {t('Register')}
+                    {t('navigate.submit')}
                 </Button>
             </CardActions>
         </Card>

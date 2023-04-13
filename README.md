@@ -109,3 +109,6 @@ A estrutura de pastas do frontend visa replicar a arquitetura do próprio Larave
  - [ ] Área de perfil do usuário
  - [ ] Documentação
  - [ ] Suporte a testes unitários
+ - [ ] Suporte ao Laravel 9 e 10
+ - [ ] Suporte ao React 18
+ - [ ] Transformar em package

@@ -14,14 +14,14 @@ export default [
         errorElement: <Error />,
         children: [
             {
-                path: '/',
+                path: route('home'),
                 element: (
                     <Suspense>
                         {React.lazy(() => import('../views/Home'))}
                     </Suspense>
                 ),
             },
-            route('verification.notice') && {
+            route.exists('verification.notice') && {
                 path: route('verification.notice'),
                 element: (
                     <Suspense>

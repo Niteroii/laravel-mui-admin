@@ -107,7 +107,7 @@ Em essência, uma página não deixa de ser um componente. Mas nessa documentaç
 Para a organização do projeto, os componentes ficam na pasta `resources/js/src/components`, e devem ser criados da mesma maneira que as páginas. Para utilizar o comando `artisan`, você precisará executar o comando `php artisan make:react-component` sem a option `--page` e passar o nome do componente a ser criado. Por exemplo, vamos criar um componente chamado `ExampleComponent`:
 
 ```bash
-php artisan make:component ExampleComponent
+php artisan make:react-component ExampleComponent
 ```
 
 O comando irá criar o arquivo `ExampleComponent.jsx` na pasta `resources/js/src/components`.
