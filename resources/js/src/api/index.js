@@ -4,6 +4,7 @@ import constants from './constants';
 import dialog from './@core/dialog';
 import hooks from './@core/hooks';
 import lang from '../lang';
+import repository from './@core/repository/ModelRepository';
 import state from './state';
 import toast from './@core/toast';
 
@@ -22,6 +23,7 @@ export default {
     dialog,
     hooks,
     lang,
+    repository,
     state,
     toast,
 };

@@ -102,7 +102,8 @@ A estrutura de pastas do frontend visa replicar a arquitetura do próprio Larave
     - [Utilizando `Toast` e `Dialog`](./.docs/guides/utilizando-toast-e-dialog.md)
 ## Roadmap
 
- - [ ] Implantação i18n
+ - [x] Implantação i18n
+ - [ ] Componente para trocar idioma
  - [ ] Lapidação das funções helper globais
  - [ ] Sistema de funções de usuários
  - [ ] Gerenciar dados CRUD com fácil implantação

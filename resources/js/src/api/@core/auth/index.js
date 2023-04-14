@@ -1,7 +1,11 @@
+import Model from '../contracts/Model';
+
 /**
  * Classe para gerenciar a autenticação do usuário.
  */
 class Auth {
+
+    #user;
 
     /**
      * Método para submeter o formulário de logout.
@@ -15,6 +19,18 @@ class Auth {
      */
     logout() {
         this.constructor.submitLogoutForm();
+    }
+
+    /**
+     * Método para retornar o usuário autenticado.
+     *
+     * @return {Model} - Instância de Model do usuário autenticado.
+     */
+    getCurrentUser() {
+        if (!this.#user) {
+            this.#user = new Model('user', blade('user'));
+        }
+        return this.#user;
     }
 
 }

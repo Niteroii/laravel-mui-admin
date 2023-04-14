@@ -17,8 +17,6 @@ import { useTranslation } from 'react-i18next';
 export const Login = () => {
     api.hooks.useClearErrorsOnExit();
 
-    console.log(Object.keys(api.lang.options.resources));
-
     const { t } = useTranslation();
 
     return (
@@ -33,7 +31,6 @@ export const Login = () => {
                     variant="h5"
                     component="div"
                 >
-                    Novo texto
                     {t('auth.register')}
                 </Typography>
                 <Stack spacing={2}>

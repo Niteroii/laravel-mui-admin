@@ -38,6 +38,22 @@ class React
 
             $this->routes[$name] = $route->uri();
         }
+
+        // Creates model schema
+        $this->set('model-schema', $this->getModelSchema());
+    }
+
+    public function getModelSchema()
+    {
+        $models = config('react.models');
+
+        $schema = [];
+
+        foreach ($models as $name => $model) {
+            $schema[$name] = (new $model())->getSchema();
+        }
+
+        return $schema;
     }
 
     /**

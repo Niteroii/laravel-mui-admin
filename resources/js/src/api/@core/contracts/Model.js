@@ -1,357 +1,212 @@
-import axios from 'axios';
-import { OBJECT_UPDATE_DATA } from '../../constants/actions';
-import state from '../../state';
-import { v4 as uuidv4 } from 'uuid';
-import toast from '../toast';
+const SCHEMA = blade('model-schema');
+
+const getClassSchema = (className) => {
+    if (!SCHEMA[className]) {
+        throw new Error(`Schema for class '${className}' not found.`);
+    }
+    const { [className]: schema } = SCHEMA;
+    return schema;
+};
+
+const filterObjectByKeys = (keys, obj) => Object.keys(obj)
+    .filter((key) => keys.includes(key))
+    .reduce((acc, key) => {
+        acc[key] = obj[key];
+        return acc;
+    }, {});
+
+/**
+ * Base model class.
+ */
+class BaseModel {
+
+    #className;
+    #attributes;
+    #id;
+    #fillable;
+    #original;
+    #createdAt;
+    #updatedAt;
+
+    /**
+     * Cria uma nova instância de Model.
+     *
+     * @param {string} className - Nome da classe em caixa baixa. Ex: 'user'.
+     * @param {object} attributes - Atributos do modelo.
+     */
+    constructor(className, attributes = {}) {
+        const { fillable } = getClassSchema(className);
+
+        this.#attributes = filterObjectByKeys(fillable, attributes);
+
+        const { id = 0, created_at: createdAt, updated_at: updatedAt } = attributes;
+
+        fillable.forEach((key) => {
+            if (this.#attributes[key] === undefined) {
+                this.#attributes[key] = null;
+            }
+        });
+
+        this.#className = className;
+
+        this.#original = { ...this.#attributes };
+        this.#id = id;
+        this.#fillable = fillable;
+
+        this.#createdAt = createdAt
+            ? new Date(createdAt)
+            : null;
+
+        this.#updatedAt = updatedAt
+            ? new Date(updatedAt)
+            : null;
+    }
+
+    /**
+     * Retorna o ID do modelo.
+     *
+     * @return {number} - ID do modelo.
+     */
+    get id() {
+        return this.#id;
+    }
+
+    /**
+     * Retorna os atributos do modelo.
+     *
+     * @return {object} - Atributos do modelo.
+     */
+    get attributes() {
+        return this.#attributes;
+    }
+
+    /**
+     * Retorna os atributos originais do modelo.
+     *
+     * @return {object} - Atributos originais do modelo.
+     */
+    get original() {
+        return this.#original;
+    }
+
+    /**
+     * Retorna os atributos preenchíveis do modelo.
+     *
+     * @return {string[]} - Atributos preenchíveis do modelo.
+     */
+    get fillable() {
+        return this.#fillable;
+    }
+
+    /**
+     * Retorna a data de criação do modelo.
+     *
+     * @return {Date|null} - Data de criação do modelo.
+     */
+    get createdAt() {
+        return this.#createdAt;
+    }
+
+    /**
+     * Retorna a data de atualização do modelo.
+     *
+     * @return {Date|null} - Data de atualização do modelo.
+     */
+    get updatedAt() {
+        return this.#updatedAt;
+    }
+
+    /**
+     * Modifica o valor de um atributo do modelo.
+     *
+     * @param {string} key - Nome do atributo.
+     * @param {any} value - Valor do atributo.
+     */
+    setAttribute(key, value) {
+        if (!this.#fillable.includes(key)) {
+            return;
+        }
+        this.#attributes[key] = value;
+    }
+
+    /**
+     * Modifica o valor de vários atributos do modelo.
+     *
+     * @param {object} attributes - Os atributos a serem modificados.
+     */
+    setAttributes(attributes) {
+        const validAttributes = filterObjectByKeys(this.#fillable, attributes);
+        this.#attributes = {
+            ...this.#attributes,
+            ...validAttributes,
+        };
+    }
+
+    /**
+     * Retorna os dados do objeto como um objeto plano.
+     *
+     * @return {object} - Objeto plano com os dados do objeto.
+     */
+    plain() {
+        return {
+            id: this.id,
+            ...this.attributes,
+            // eslint-disable-next-line camelcase
+            created_at: this.createdAt,
+            // eslint-disable-next-line camelcase
+            updated_at: this.updatedAt,
+        };
+    }
+
+    /**
+     * Obtém os campos que foram modificados ou false caso nenhum campo tenha sido modificado.
+     *
+     * @return {object|boolean} - Objeto com os campos modificados ou
+     * false caso nenhum campo tenha sido modificado.
+     */
+    diff() {
+        const diff = {};
+        Object.keys(this.original).forEach((key) => {
+            if (this.original[key] !== this.attributes[key]) {
+                diff[key] = this.attributes[key];
+            }
+        });
+        return Object.keys(diff).length > 0 ? diff : false;
+    }
+
+}
 
 /**
  * Model class.
  *
  */
-export default class Model {
-
-    #id;
-    // #data;
-    #changed = [];
-    #stateMap = false;
-    #updatedAt;
-    #createdAt;
-    #parent;
-    #key;
-
-    #entity;
+export default class Model extends BaseModel {
 
     /**
-     * Cria uma nova instância do modelo.
+     * Cria uma nova instância de Model.
      *
-     * @param {string} entity - O nome da entidade.
-     * @param {object} data - Os dados do modelo.
+     * @param {string} className - Nome da classe em caixa baixa. Ex: 'user'.
+     * @param {object} attributes - Atributos do modelo.
      */
-    constructor(entity, data) {
-        this.#entity = entity;
-        this.dispatchData(data);
+    constructor(className, attributes) {
+        super(className, attributes);
+
+        return new Proxy(this, {
+            get: (_target, prop) => {
+                if (this.fillable.includes(prop)) {
+                    return this.attributes[prop];
+                }
+                return this[prop];
+            },
+            set: (_target, prop, value) => {
+                if (this.fillable.includes(prop)) {
+                    this.setAttribute(prop, value);
+                    return true;
+                }
+                this[prop] = value;
+                return true;
+            },
+        });
     }
-
-    key = () => this.#key;
-
-    getId = () => this.#id;
-
-    serialize = () => ({
-        id: this.#id,
-        updated_at: this.#updatedAt,
-        created_at: this.#createdAt,
-        ...this.data(),
-    });
-
-    data = () => state.store.getState().objects[this.getEntity()][this.getId()];
-
-    updateData = (data) => {
-        Object.keys(data).forEach((key) => {
-            this.setProp(key, data[key]);
-        });
-    };
-
-    setProp = (key, value) => {
-        if (!this.#changed.includes(key)) {
-            this.#changed.push(key);
-        }
-
-        // if (options.merge && typeof this.#data[key] === 'object') {
-        //     this.#data[key] = {
-        //         ...this.#data[key],
-        //         ...value,
-        //     };
-        //     return;
-        // }
-
-        state.dispatch({
-            type: OBJECT_UPDATE_DATA,
-            payload: {
-                entity: this.getEntity(),
-                id: this.getId(),
-                data: {
-                    ...this.data(),
-                    [key]: value,
-                },
-            },
-        });
-
-        return value;
-    };
-
-    getProp = (key) => {
-        const data = this.data();
-
-        // makes !(key in data) with Object.keys
-        if (!Object.keys(data).includes(key)) {
-            return null;
-        }
-
-        return data[key];
-    };
-
-    getEntity = () => this.#entity;
-
-    getBaseUrl = () => `/api/${this.getEntity()}`;
-
-    getCreateUrl = () => `${this.getBaseUrl()}`;
-    getSaveUrl = () => `${this.getBaseUrl()}/${this.#id}`;
-    getDeleteUrl = () => `${this.getBaseUrl()}/${this.#id}`;
-
-    diff = () => {
-        const object = {};
-
-        this.#changed.forEach((key) => {
-            object[key] = this.getProp(key);
-        });
-
-        return object;
-    };
-
-    getUpdatePayload = this.data;
-    getCreatePayload = this.data;
-    getDeletePayload = () => ({ id: this.getId() });
-
-    dispatchData = (data) => {
-        const {
-            id = 0, updated_at, created_at, ...modelData
-        } = data;
-
-        this.#id = id;
-        this.#updatedAt = updated_at;
-        this.#createdAt = created_at;
-        this.#key = uuidv4();
-
-        state.dispatch({
-            type: OBJECT_UPDATE_DATA,
-            payload: {
-                entity: this.#entity,
-                data: modelData,
-                id,
-            },
-        });
-    };
-
-    save = async (options = {}) => {
-        const { displayAlert = true, additionalPayload = {} } = options;
-
-        const data = this.#id === 0
-            ? this.getCreatePayload()
-            : this.getUpdatePayload();
-
-        const mode = this.#id === 0
-            ? 'create'
-            : 'update';
-
-        const url = mode === 'create'
-            ? this.getCreateUrl()
-            : this.getSaveUrl();
-
-        const payload = {
-            ...data,
-            ...additionalPayload,
-        };
-
-        const { data: response, status } = await axios({
-            url,
-            method: 'POST',
-            data: payload,
-        });
-
-        if (displayAlert && response.message) {
-            toast.create(response.message);
-        }
-
-        if ([200, 201].includes(status)) {
-            const dispatchObject = mode === 'create'
-                ? { id: response.id, ...response.data || data }
-                : response.data || data;
-
-            this.dispatchData(dispatchObject);
-
-            return true;
-        }
-
-        return false;
-    };
-
-    delete = async (options = {}) => {
-        const { additionalPayload = {}, displayAlert = true } = options;
-
-        const data = this.getDeletePayload();
-
-        const url = this.getDeleteUrl();
-
-        const { data: response, status } = await axios({
-            url,
-            method: 'DELETE',
-            data: JSON.stringify({
-                ...data,
-                ...additionalPayload,
-            }),
-        });
-
-        if (displayAlert && response.message) {
-            toast.create(response.message);
-        }
-
-        return status === 204;
-    };
-
-    disable = async (options = {}) => {
-        const { additionalPayload = {}, displayAlert = false } = options;
-
-        const data = this.getDeletePayload();
-
-        const url = `${this.getBaseUrl()}/${this.getId()}/disable`;
-
-        const response = await request({
-            url,
-            method: 'post',
-            data: JSON.stringify({
-                ...data,
-                ...additionalPayload,
-            }),
-        });
-
-        if (displayAlert) {
-            alerts.create({ message: response.message });
-        }
-
-        state.dispatch({
-            type: SUBJECT_ITEM_DELETED,
-            payload: this.getId(),
-        });
-
-        return response.status === 'success';
-    };
-
-    restore = async (options = {}) => {
-        const { additionalPayload = {}, displayAlert = false } = options;
-
-        const url = `${this.getBaseUrl()}/${this.getId()}/restore`;
-
-        const response = await request({
-            url,
-            method: 'post',
-            data: JSON.stringify({ ...additionalPayload }),
-        });
-
-        if (displayAlert) {
-            alerts.create({ message: response.message });
-        }
-
-        state.dispatch({
-            type: SUBJECT_ITEM_DELETED,
-            payload: this.getId(),
-        });
-
-        return response.status === 'success';
-    };
-
-    isTrashed = () => !!this.getProp('deleted_at');
-
-    /**
-     * @deprecated
-     */
-    hasBindState = () => !!this.#stateMap;
-
-    /**
-     * @param {*} states
-     * @deprecated
-     */
-    bindState = (states) => {
-        this.#stateMap = states;
-    };
-
-    fields = () => [];
-
-    getItemParams = () => ({
-        title: 'Title',
-        subtitle: 'Subtitle',
-        actions: [
-            {
-                icon: null,
-                href: '/',
-                tooltipText: 'Action!',
-            },
-        ],
-    });
-
-    static getColumns = () => [];
-
-    setAsGlobalParentObject = () => {
-        state.dispatch({
-            type: actions.SUBJECT_SET_PARENT,
-            payload: this.serialize(),
-        });
-    };
-
-    setAsGlobalObject = () => {
-        state.dispatch({
-            type: actions.SUBJECT_SET_ITEM,
-            payload: this.serialize(),
-        });
-    };
-
-    injectParent = (parent) => {
-        this.#parent = parent;
-    };
-
-    parent = () => this.#parent;
-
-    useData = ({
-        autoSave = false,
-        onSave = () => null,
-    } = {}) => {
-        // review
-
-        const [data, setData] = React.useState(this.data());
-
-        React.useEffect(() => {
-            const unsubscribe = state.store.subscribe(() => {
-                setData(this.data());
-            });
-            return () => {
-                unsubscribe();
-            };
-        }, []);
-
-        const setProp = (key, value) => {
-            this.setProp(key, value);
-            if (autoSave) {
-                this.save().then(onSave);
-            }
-        };
-
-        return {
-            data,
-            setProp,
-        };
-    };
-
-    useChilds = ({ childs, entity }) => {
-        const [items, setItems] = React.useState(childs);
-
-        const addItem = React.useCallback(() => {
-            const item = new entity();
-            item.injectParent(this);
-            setItems([
-                ...items,
-                item,
-            ]);
-        }, [entity, items]);
-
-        const removeItem = React.useCallback((key) => {
-            setItems(items.filter((item) => item.key() != key));
-        }, [items]);
-
-        return {
-            items,
-            addItem,
-            removeItem,
-            setItems,
-        };
-    };
 
 }

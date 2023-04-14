@@ -9,7 +9,15 @@ trait HasCrudSupport
         return $this->fillable;
     }
 
-    public function getFieldsDefinition($schema = 'default'): array
+    public function getSchema()
+    {
+        return [
+            'fillable' => $this->getFillable(),
+            'fields' => $this->getFieldsDefinition(),
+        ];
+    }
+
+    public function getFieldsDefinition(): array
     {
         $definitions = [];
 
@@ -17,6 +25,18 @@ trait HasCrudSupport
             $definitions[$fillable] = [];
         }
 
-        return $definitions;
+        return [
+            'default' => $definitions,
+        ];
+    }
+
+    public function scopePermitted($query)
+    {
+        return $query;
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query;
     }
 }
