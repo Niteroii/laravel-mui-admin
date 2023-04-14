@@ -4,6 +4,7 @@ namespace App\Contracts;
 
 use App\Http\Controllers\RendererController;
 use App\Http\Controllers\RepositoryController;
+use Illuminate\Http\Request;
 
 trait HasCrudSupport
 {
@@ -110,5 +111,13 @@ trait HasCrudSupport
             \Route::$method($url, [RepositoryController::class, $action])
                 ->name($this->getSchemaName() . '.' . $action);
         }
+    }
+
+    public static function validateForCreate(Request $request)
+    {
+    }
+
+    public static function validateForUpdate(Request $request)
+    {
     }
 }

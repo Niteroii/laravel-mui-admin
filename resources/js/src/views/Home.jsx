@@ -11,10 +11,6 @@ import axios from 'axios';
 const Home = () => {
     const { t } = useTranslation();
 
-    axios('/api/users').then((response) => {
-        console.log(response.data);
-    });
-
     return (
         <Grid
             container

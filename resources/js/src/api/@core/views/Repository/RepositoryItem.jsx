@@ -1,9 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 
 const RepositoryItem = () => {
     const { id = 0 } = useParams();
-    return <div>RepositoryItem {id}</div>;
+    const { className } = useLoaderData();
+    return <div>RepositoryItem for {className} - {id}</div>;
 };
 
 export default RepositoryItem;

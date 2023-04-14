@@ -7,13 +7,7 @@ use Illuminate\Http\Request;
 
 class RepositoryController extends Controller
 {
-    protected $entity;
-
-    public function loadEntity($entity)
-    {
-    }
-
-    public function getEntity(Request $request)
+    public function entity(Request $request)
     {
         $name = $request->route()->getName();
 
@@ -69,7 +63,7 @@ class RepositoryController extends Controller
      */
     public function beginQuery(Request $request)
     {
-        return $this->getEntity($request)::permitted();
+        return $this->entity($request)::permitted();
     }
 
     /**
@@ -79,7 +73,7 @@ class RepositoryController extends Controller
      */
     public function new(Request $request)
     {
-        $this->validateForCreate($request);
+        $this->entity($request)::validateForCreate($request);
 
         $item = $this->create();
 
@@ -117,7 +111,7 @@ class RepositoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateForUpdate($request);
+        $this->entity($request)::validateForUpdate($request);
 
         $item = $this->beginQuery($request)->findOrFail($id);
 
@@ -159,7 +153,9 @@ class RepositoryController extends Controller
      */
     public function create()
     {
-        return new $this->entity();
+        $classname = $this->entity(request());
+
+        return new $classname();
     }
 
     /**

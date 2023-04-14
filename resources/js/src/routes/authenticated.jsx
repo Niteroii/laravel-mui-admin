@@ -6,7 +6,7 @@ import api from '../api';
 
 export default [
     {
-        path: '/',
+        path: route('home'),
         element: (
             <Suspense>
                 {React.lazy(() => import('../views/Layouts/Authenticated'))}
@@ -15,7 +15,7 @@ export default [
         errorElement: <Error />,
         children: [
             {
-                path: route('home'),
+                index: true,
                 element: (
                     <Suspense>
                         {React.lazy(() => import('../views/Home'))}

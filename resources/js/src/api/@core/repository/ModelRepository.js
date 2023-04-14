@@ -2,6 +2,50 @@
 import React from 'react';
 import Suspense from '../components/Suspense';
 
+// React.useEffect(() => {
+//     axios(route('user.list')).then((response) => {
+//         console.log('list', response.data);
+
+//         const last = response.data.data[response.data.data.length - 1];
+
+//         axios({
+//             url: route('user.delete', { id: last.id }),
+//             method: 'DELETE',
+//         })
+//             .then((response) => {
+//                 console.log('delete', response.data);
+//             });
+//     });
+
+//     axios(route('user.get', { id: 1 })).then((response) => {
+//         console.log('get', response.data);
+//     });
+
+//     axios({
+//         url: route('user.update', { id: 1 }),
+//         method: 'POST',
+//         data: { name: 'John Doe' },
+//     }).then((response) => {
+//         console.log(response.data);
+//     });
+
+//     axios({
+//         url: route('user.new'),
+//         method: 'POST',
+//         data: {
+//             name: 'Jane Doe',
+//             email: 'jane@example.com',
+//             password: 'password',
+//         },
+//     }).then((response) => {
+//         console.log(response.data);
+//     });
+
+//     // axios(route('user.list')).then((response) => {
+//     //     console.log(response.data);
+//     // });
+// }, []);
+
 /**
  * Class ModelRepository.
  */
@@ -57,6 +101,7 @@ class ModelRepository {
                     {React.lazy(() => import(`../views/Repository/${this.importMapping[action]}`))}
                 </Suspense>
             ),
+            loader: () => ({ className }),
         });
     }
 

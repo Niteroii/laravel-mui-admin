@@ -1,6 +1,5 @@
 <?php
 
-use App\Services\React;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +34,5 @@ Route::group([
         ->name('home');
 
     // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
-    app(React::class)->web();
+    app('react')->web();
 });
