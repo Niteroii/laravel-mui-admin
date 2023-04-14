@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Services\React;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->group(function () {
+    // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
+    app(React::class)->api();
+});

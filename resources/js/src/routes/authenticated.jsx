@@ -2,6 +2,7 @@ import React from 'react';
 
 import Suspense from '../api/@core/components/Suspense';
 import Error from '../views/Error';
+import api from '../api';
 
 export default [
     {
@@ -29,7 +30,7 @@ export default [
                     </Suspense>
                 ),
             },
-
+            ...api.repository.createWebRoutes(),
         ],
     },
 ];

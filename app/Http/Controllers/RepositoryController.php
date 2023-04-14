@@ -2,14 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class CrudController extends Controller
+class RepositoryController extends Controller
 {
     protected $entity;
 
     public function loadEntity($entity)
     {
+    }
+
+    public function getEntity(Request $request)
+    {
+        $name = $request->route()->getName();
+
+        [$name, $_action] = explode('.', $name);
+
+        $class = '\\App\\Models\\' . \Str::studly($name);
+
+        if (!class_exists($class)) {
+            throw new \Exception('Classe não encontrada: ' . $class);
+        }
+
+        return $class;
     }
 
     /**
@@ -20,7 +36,7 @@ class CrudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $entity)
+    public function list(Request $request)
     {
         $request->validate([
             'page' => 'integer',
@@ -34,7 +50,8 @@ class CrudController extends Controller
             $per_page = $request->per_page;
         }
 
-        $query = $this->beginQuery();
+        $query = $this->beginQuery($request);
+        // $query = User::query();
 
         if ($request->has('q') && !empty($request->q)) {
             $query = $this->search($query, $request->q);
@@ -50,9 +67,9 @@ class CrudController extends Controller
     /**
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function beginQuery()
+    public function beginQuery(Request $request)
     {
-        return $this->entity::query();
+        return $this->getEntity($request)::permitted();
     }
 
     /**
@@ -60,7 +77,7 @@ class CrudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function new(Request $request)
     {
         $this->validateForCreate($request);
 
@@ -84,9 +101,9 @@ class CrudController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function get(Request $request, $id)
     {
-        $item = $this->beginQuery()->findOrFail($id);
+        $item = $this->beginQuery($request)->findOrFail($id);
 
         return response()->json($item, 200);
     }
@@ -102,7 +119,7 @@ class CrudController extends Controller
     {
         $this->validateForUpdate($request);
 
-        $item = $this->beginQuery()->findOrFail($id);
+        $item = $this->beginQuery($request)->findOrFail($id);
 
         $this->fill($request, $item);
 
@@ -120,14 +137,13 @@ class CrudController extends Controller
     /**
      * Deleta um item cadastrado.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param mixed                    $id
+     * @param mixed $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request, $id)
     {
-        $item = $this->beginQuery()->findOrFail($id);
+        $item = $this->beginQuery($request)->findOrFail($id);
 
         $item->delete();
 

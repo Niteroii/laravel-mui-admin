@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Services\ApiService;
 use Illuminate\Console\Command;
 
 class DebugDev extends Command
@@ -36,14 +35,6 @@ class DebugDev extends Command
      */
     public function handle()
     {
-        $classes = ApiService::getModelsWithCrudSupport();
-
-        $classes->each(function ($class) {
-            // $class::
-            $model = new $class();
-
-            dd($model->getFillable());
-        });
         // print_r($classes);
 
         return 0;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\React;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,12 +33,7 @@ Route::group([
 ], function () {
     Route::get('/', [App\Http\Controllers\RendererController::class, 'authenticated'])
         ->name('home');
-});
 
-Route::group([
-    'middleware' => ['auth:sanctum', 'verified'],
-    'prefix' => 'admin',
-], function () {
-    Route::get('{any}/test/{id}', [App\Http\Controllers\RendererController::class, 'authenticated'])
-        ->name('test');
+    // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
+    app(React::class)->web();
 });

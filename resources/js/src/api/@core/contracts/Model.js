@@ -1,6 +1,6 @@
 const SCHEMA = blade('model-schema');
 
-const getClassSchema = (className) => {
+export const getClassSchema = (className) => {
     if (!SCHEMA[className]) {
         throw new Error(`Schema for class '${className}' not found.`);
     }

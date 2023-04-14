@@ -2,6 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\HasCrudSupport;
+use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
 class React
 {
     private $data = [];
@@ -17,6 +22,8 @@ class React
         'ignition.scripts',
         'ignition.styles',
     ];
+
+    private $models;
 
     public function __construct()
     {
@@ -45,15 +52,56 @@ class React
 
     public function getModelSchema()
     {
-        $models = config('react.models');
+        $models = $this->getModelsWithCrudSupport();
 
         $schema = [];
 
-        foreach ($models as $name => $model) {
-            $schema[$name] = (new $model())->getSchema();
+        foreach ($models as $model) {
+            $instance = new $model();
+            $name = $instance->getSchemaName();
+            $schema[$name] = $instance->getSchema();
         }
 
         return $schema;
+    }
+
+    public function getModelsWithCrudSupport(): Collection
+    {
+        // this function result should be cached
+        if (!isset($this->models)) {
+            /** @var mixed */
+            $container = Container::getInstance();
+
+            // dd(\File::allFiles(app_path('Models')));
+
+            $models = collect(\File::allFiles(app_path('Models')))
+                ->map(function ($item) use ($container) {
+                    $path = 'Models\\' . $item->getRelativePathName();
+
+                    return sprintf(
+                        '\%s%s',
+                        $container->getNamespace(),
+                        strtr(substr($path, 0, strrpos($path, '.')), DIRECTORY_SEPARATOR, '\\')
+                    );
+                })
+                ->filter(function ($class) {
+                    $valid = false;
+
+                    if (class_exists($class)) {
+                        $reflection = new \ReflectionClass($class);
+
+                        $valid = $reflection->isSubclassOf(Model::class)
+                            && !$reflection->isAbstract()
+                            && in_array(HasCrudSupport::class, array_keys($reflection->getTraits()));
+                    }
+
+                    return $valid;
+                });
+
+            $this->models = $models->values();
+        }
+
+        return $this->models;
     }
 
     /**
@@ -122,5 +170,31 @@ class React
     public function routes()
     {
         return $this->routes;
+    }
+
+    /**
+     * Cria as rotas para as models que implementam o contrato HasCrudSupport.
+     */
+    public function web()
+    {
+        $models = $this->getModelsWithCrudSupport();
+
+        foreach ($models as $model) {
+            $instance = new $model();
+            $instance->web();
+        }
+    }
+
+    /**
+     * Cria as rotas de API para as models que implementam o contrato HasCrudSupport.
+     */
+    public function api()
+    {
+        $models = $this->getModelsWithCrudSupport();
+
+        foreach ($models as $model) {
+            $instance = new $model();
+            $instance->api();
+        }
     }
 }
