@@ -88,7 +88,7 @@ module.exports = {
         }],
         'no-array-constructor': 'error',
         'no-caller': 'error',
-        'no-confusing-arrow': 'error',
+        // 'no-confusing-arrow': 'error',
         'no-console': 'warn',
         'no-const-assign': 'error',
         'no-dupe-class-members': 'error',

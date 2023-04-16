@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\HasCrudSupport;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -174,27 +175,72 @@ class React
 
     /**
      * Cria as rotas para as models que implementam o contrato HasCrudSupport.
+     *
+     * @param array $options - Opções de configuração para ocultar ou exibir as rotas
      */
-    public function web()
+    public function web($options = [])
     {
-        $models = $this->getModelsWithCrudSupport();
-
-        foreach ($models as $model) {
-            $instance = new $model();
-            $instance->web();
+        $middleware = ['auth:sanctum', 'verified'];
+        if (isset($options['middleware'])) {
+            $middleware = $options['middleware'];
         }
+
+        $renderer = 'authenticated';
+
+        if (isset($options['renderer'])) {
+            $renderer = $options['renderer'];
+        }
+
+        \Route::group([
+            'middleware' => $middleware,
+        ], function () use ($renderer, $options) {
+            if (!isset($options['home']) || false !== $options['home']) {
+                \Route::get(RouteServiceProvider::HOME, [\App\Http\Controllers\RendererController::class, $renderer])
+                    ->name('home');
+            }
+
+            // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
+            $models = $this->getModelsWithCrudSupport();
+            foreach ($models as $model) {
+                /** @var \App\Contracts\HasCrudSupport */
+                $instance = new $model();
+
+                $schemaName = $instance->getSchemaName();
+
+                if (isset($options['include']) && !in_array($schemaName, $options['include'])) {
+                    continue;
+                }
+                if (isset($options['exclude']) && in_array($schemaName, $options['exclude'])) {
+                    continue;
+                }
+                // Registra as rotas para cada modelo
+                $instance->web($renderer);
+            }
+        });
     }
 
     /**
      * Cria as rotas de API para as models que implementam o contrato HasCrudSupport.
+     *
+     * @param mixed $options
      */
-    public function api()
+    public function api($options = [])
     {
-        $models = $this->getModelsWithCrudSupport();
-
-        foreach ($models as $model) {
-            $instance = new $model();
-            $instance->api();
+        $middleware = ['auth:sanctum', 'verified'];
+        if (isset($options['middleware'])) {
+            $middleware = $options['middleware'];
         }
+
+        \Route::group([
+            'middleware' => $middleware,
+        ], function () {
+            // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
+            $models = $this->getModelsWithCrudSupport();
+
+            foreach ($models as $model) {
+                $instance = new $model();
+                $instance->api();
+            }
+        });
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,8 +10,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+app('react')->api([
+    // 'middleware' => null, // desabilita o middleware padrão
 
-Route::middleware('auth:sanctum')->group(function () {
-    // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
-    app('react')->api();
-});
+    // 'include' => ['user'], // inclui apenas as rotas de usuários
+    // OR
+    // 'exclude' => ['user'], // exclui as rotas de usuários
+]);

@@ -1,230 +1,196 @@
-import React from 'react';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
 
-import { Sidebar, useProSidebar } from 'react-pro-sidebar';
-import { Outlet } from 'react-router-dom';
-
-import NavMenu from '../../components/NavMenu';
-
-import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-// import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import MenuIcon from '@mui/icons-material/Menu';
+import Divider from '@mui/material/Divider';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LogoutIcon from '@mui/icons-material/Logout';
+import Icon from '../../components/Icon';
 
-import api from '../../api';
+import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-/**
- * Lida com o logout do usuário.
- */
-const handleLogout = () => {
-    const { t } = api.lang;
+import NavMenu from '../../components/Menu/NavMenu';
 
-    const dialogOptions = {
-        title: t('Logout'),
-        message: t('Are you sure you want to logout?'),
-        type: 'confirm',
-        confirmText: t('Yes'),
-        cancelText: t('No'),
-    };
-    api.dialog.create(dialogOptions).then((result) => {
-        if (result) {
-            api.auth.logout();
-        }
-    });
-};
+const drawerWidth = 240;
 
-const Layout = () => {
-    const isTablet = useMediaQuery((theme) => theme.breakpoints.up('md'));
-    const windowHeight = api.hooks.useWindowHeight();
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
 
-    const { collapseSidebar } = useProSidebar();
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: { width: `calc(${theme.spacing(8)} + 1px)` },
+});
 
-    const [popAnchorEl, setPopAnchorEl] = React.useState(null);
-    const popOpen = Boolean(popAnchorEl);
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
 
-    /**
-     * Alterna exibição do menu lateral.
-     *
-     * @param {boolean} open - Indica se o menu lateral deve ser exibido.
-     * @return {Function} - Função que alterna o menu lateral.
-     */
-    const toggleDrawer = (open) => (event) => {
-        if (
-            event.type === 'keydown'
-            && (event.key === 'Tab'
-                || event.key === 'Shift')
-        ) {
-            return;
-        }
+const AppBar = styled(
+    MuiAppBar,
+    { shouldForwardProp: (prop) => prop !== 'open' },
+)(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+}));
 
-        setDrawerOpen(open);
-    };
+const Drawer = styled(
+    MuiDrawer,
+    { shouldForwardProp: (prop) => prop !== 'open' },
+)(({ theme, open }) => ({
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    display: 'flex',
+    ...open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+    },
+    ...!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    },
+}));
 
-    const appBarHeight = isTablet
-        ? api.config.layout.appBarHeight.desktop
-        : api.config.layout.appBarHeight.mobile;
+const Authenticated = () => {
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+
+    const { t } = useTranslation();
 
     const { name: userName } = React.useMemo(() => blade('user'), []);
     const blockUi = React.useMemo(() => blade('block-ui') === '1', []);
 
-    const { t } = useTranslation();
+    const isTablet = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    const AppBarComponent = React.useMemo(() => isTablet
+        ? AppBar
+        : MuiAppBar, [isTablet]);
+
+    const DrawerComponent = React.useMemo(() => isTablet
+        ? Drawer
+        : MuiDrawer, [isTablet]);
 
     return (
-        <React.Fragment>
-            <Stack
-                direction="row"
-                spacing={0}
-                sx={{ overflow: 'hidden', height: '100vh' }}
+        <Box sx={{ display: 'flex' }}>
+            {/* <CssBaseline /> */}
+            <AppBarComponent
+                position="fixed"
+                open={open}
             >
-                {!blockUi && isTablet && (
-                    <Sidebar
-                        width="264px"
-                        collapsedWidth="58px"
-                        rootStyles={{ '.ps-sidebar-container': { height: 'unset' } }}
+                <Toolbar>
+                    {(!isTablet || !open) && (
+                        <IconButton
+                            color="inherit"
+                            aria-label={t('aria.openDrawer')}
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{ mr: { md: 2 } }}
+                        >
+                            <Icon name="menu" />
+                        </IconButton>
+                    )}
+
+                    <Typography
+                        width="100%"
+                        variant="h6"
+                        noWrap
+                        component="div"
                     >
-                        <NavMenu toggleDrawer={toggleDrawer} />
-                    </Sidebar>
-                )}
-
-                <Stack
-                    spacing={0}
-                    sx={{ width: '100%' }}
-                >
-                    <AppBar
-                        position="static"
-                        sx={{
-                            height: appBarHeight,
-                            zIndex: 1,
-                        }}
+                        {document.title}
+                    </Typography>
+                </Toolbar>
+            </AppBarComponent>
+            <DrawerComponent
+                variant={isTablet ? 'permanent' : 'temporary'}
+                open={open}
+                onClose={() => setOpen(false)}
+                PaperProps={{ sx: { width: drawerWidth } }}
+            >
+                <DrawerHeader>
+                    <Button
+                        component={Link}
+                        to={route('profile')}
+                        sx={{ px: 2 }}
                     >
-                        <Toolbar>
-                            {!blockUi && (
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label={t('Open menu')}
-                                    sx={{ mr: 2 }}
-                                    onClick={(e) => {
-                                        if (isTablet) {
-                                            collapseSidebar();
-                                            return;
-                                        }
-                                        toggleDrawer(true)(e);
-                                    }}
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                            )}
+                        <Avatar
+                            alt={userName}
+                            scr=""
+                            sx={{ margin: '0 10px 0 0', color: 'info.dark' }}
+                        >
+                            {userName?.charAt(0)}
+                        </Avatar>
+                        <Typography
+                            variant="body3"
+                            sx={{ margin: 'auto' }}
+                        >
+                            {userName.split(' ')[0]}
+                        </Typography>
 
-                            {!blockUi && !isTablet && (
-                                <Drawer
-                                    anchor="left"
-                                    open={drawerOpen}
-                                    onClose={toggleDrawer(false)}
-                                >
-                                    <NavMenu
-                                        toggleDrawer={toggleDrawer}
-                                        isTablet={isTablet}
-                                    />
-                                </Drawer>
-                            )}
-
-                            <Typography
-                                variant="h6"
-                                component="div"
-                                sx={{ flexGrow: 1 }}
-                            />
-                            <Button
-                                id="popMenu-btn"
-                                aria-controls={open ? 'popMenu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                color="inherit"
-                                onClick={(e) => setPopAnchorEl(e.currentTarget)}
-                            // sx={{ height: '52.5px' }}
-                            >
-                                <Avatar
-                                    alt={userName}
-                                    scr=""
-                                    sx={{ margin: '0 10px 0 0', color: 'info.dark' }}
-                                >
-                                    {userName?.charAt(0)}
-                                </Avatar>
-
-                                <Box
-                                    display="flex"
-                                    sx={{
-                                        height: '100%',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <Typography
-                                        variant="body3"
-                                        sx={{ margin: 'auto' }}
-                                    >
-                                        {userName.split(' ')[0]}
-                                    </Typography>
-
-                                    <ExpandMoreIcon />
-                                </Box>
-                            </Button>
-
-                            <Menu
-                                id="popMenu"
-                                anchorEl={popAnchorEl}
-                                open={popOpen}
-                                onClose={() => setPopAnchorEl(null)}
-                                MenuListProps={{ 'aria-labelledby': 'popMenu-btn' }}
-                            >
-                                <MenuList
-                                    sx={{ minWidth: 180 }}
-                                >
-                                    <MenuItem onClick={handleLogout}>
-                                        <ListItemIcon>
-                                            <LogoutIcon />
-                                        </ListItemIcon>
-                                        <ListItemText>
-                                            {t('Logout')}
-                                        </ListItemText>
-                                    </MenuItem>
-                                </MenuList>
-                            </Menu>
-                        </Toolbar>
-                    </AppBar>
-                    <Box
-                        sx={{
-                            overflowY: 'auto',
-                            p: (theme) => theme.spacing(3),
-                            height: windowHeight - appBarHeight,
-                            flexGrow: 1,
-                        }}
-                    >
-                        <Outlet />
-                    </Box>
-                </Stack>
-            </Stack>
-        </React.Fragment>
+                    </Button>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl'
+                            ? <Icon name="chevronRight" />
+                            : <Icon name="chevronLeft" />}
+                    </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <NavMenu
+                    iconsOnly={!open && isTablet}
+                />
+            </DrawerComponent>
+            <Box
+                component="main"
+                sx={{ flexGrow: 1, p: 3 }}
+            >
+                <DrawerHeader />
+                <Outlet />
+            </Box>
+        </Box>
     );
 };
 
-export default Layout;
+export default Authenticated;
 

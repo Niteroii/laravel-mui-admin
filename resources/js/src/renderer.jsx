@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { RouterProvider } from 'react-router-dom';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material';
 
@@ -19,13 +18,11 @@ export default {
         ReactDOM.render(
             <React.StrictMode>
                 <ReduxProvider store={api.state.store}>
-                    <ProSidebarProvider>
-                        <ThemeProvider theme={theme}>
-                            <RouterProvider router={createRouter('authenticated')} />
-                            <ToastProvider />
-                            <DialogProvider />
-                        </ThemeProvider>
-                    </ProSidebarProvider>
+                    <ThemeProvider theme={theme}>
+                        <RouterProvider router={createRouter('authenticated')} />
+                        <ToastProvider />
+                        <DialogProvider />
+                    </ThemeProvider>
                 </ReduxProvider>
             </React.StrictMode>,
             rootElement,

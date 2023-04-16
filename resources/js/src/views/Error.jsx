@@ -37,6 +37,7 @@ const Error = () => {
                     <Typography
                         variant="h4"
                         textAlign="center"
+                        sx={{ mb: 3 }}
                     >
                         {t('error')}
                     </Typography>
@@ -44,6 +45,7 @@ const Error = () => {
                     <Typography
                         variant="body1"
                         textAlign="center"
+                        sx={{ mt: 3 }}
                     >
                         {error.message}
                     </Typography>

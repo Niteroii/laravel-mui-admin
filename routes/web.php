@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,12 +25,11 @@ Auth::routes([
     // 'verify' => true, // habilita a rota de verificação de e-mail
 ]);
 
-Route::group([
-    'middleware' => ['auth:sanctum', 'verified'],
-], function () {
-    Route::get('/', [App\Http\Controllers\RendererController::class, 'authenticated'])
-        ->name('home');
-
-    // Registra as rotas de CRUD para os modelos que implementam HasCrudSupport
-    app('react')->web();
-});
+app('react')->web([
+    // 'home' => false, // desabilita a rota de home
+    // 'renderer' => 'authenticated', // define o renderer utilizado
+    // 'middleware' => null, // desabilita o middleware padrão
+    // 'include' => ['user'], // inclui apenas as rotas de usuários
+    // OR
+    // 'exclude' => ['user'], // exclui as rotas de usuários
+]);

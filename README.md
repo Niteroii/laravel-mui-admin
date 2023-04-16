@@ -1,4 +1,4 @@
-# Reavel | React e Laravel
+# Laravel MUI Admin
 
 > Laravel^8.0
 > React^17.0
