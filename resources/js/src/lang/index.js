@@ -17,4 +17,6 @@ i18n.use(LanguageDetector)
         },
     });
 
+window.t = i18n.t.bind(i18n);
+
 export default i18n;

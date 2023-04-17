@@ -241,5 +241,6 @@ module.exports = {
         'blade': false,
         'error': false,
         'route': false,
+        't': false,
     }
 };

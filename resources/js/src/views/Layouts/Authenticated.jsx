@@ -20,29 +20,15 @@ import { useTranslation } from 'react-i18next';
 import List from '../../components/List';
 import api from '../../api';
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
-const handleLogout = () => {
-    const { t } = api.lang;
-
-    const dialogOptions = {
-        title: t('navigate.logout'),
-        message: t('auth.logout.confirm'),
-        type: 'confirm',
-        confirmText: t('yes'),
-        cancelText: t('no'),
-    };
-    api.dialog.create(dialogOptions).then((result) => {
-        if (result) {
-            api.auth.logout();
-        }
-    });
-};
-
+/**
+ * Add items no menu aqui.
+ */
 const navMenuItems = [
     {
         key: 1,
-        text: api.lang.t('navigate.home'),
+        text: t('navigate.home'),
         icon: 'homeOutlined',
         ListItemButtonProps: {
             component: Link,
@@ -50,9 +36,6 @@ const navMenuItems = [
 
         },
     },
-];
-
-const bottomMenuItems = [
     {
         element: (
             <Divider
@@ -61,11 +44,23 @@ const bottomMenuItems = [
             />
         ),
     },
+
+];
+
+const bottomMenuItems = [
+    {
+        element: (
+            <Divider
+                key="2"
+                sx={{ mb: 1 }}
+            />
+        ),
+    },
     {
         key: 3,
-        text: api.lang.t('navigate.logout'),
+        text: t('navigate.logout'),
         icon: 'logout',
-        ListItemButtonProps: { onClick: handleLogout },
+        ListItemButtonProps: { onClick: () => api.auth.logout() },
     },
 ];
 
@@ -97,6 +92,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
+const DrawerFooter = styled(
+    Box,
+    { shouldForwardProp: (prop) => prop !== 'open' },
+)(({ theme, open }) => ({
+    // position: 'absolute',
+    // bottom: 0,
+    flexShrink: 0,
+    ...open && openedMixin(theme),
+    ...!open && closedMixin(theme),
+}));
+
 const AppBar = styled(
     MuiAppBar,
     { shouldForwardProp: (prop) => prop !== 'open' },
@@ -123,7 +129,6 @@ const Drawer = styled(
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-    display: 'flex',
     ...open && {
         ...openedMixin(theme),
         '& .MuiDrawer-paper': openedMixin(theme),
@@ -196,12 +201,19 @@ const Authenticated = () => {
                 open={open}
                 onClose={() => setOpen(false)}
                 PaperProps={{ sx: { width: drawerWidth } }}
+                sx={{
+                    display: 'flex',
+                    direction: 'flex-column',
+                    flexWrap: 'nowrap',
+                    height: '100%',
+                }}
             >
-                <DrawerHeader>
+                <DrawerHeader sx={{ flexShrink: 0 }}>
                     <Button
                         component={Link}
                         to={route('profile')}
                         sx={{ pr: 2 }}
+                        onClick={() => !isTablet && setOpen(false)}
                     >
                         <Avatar
                             alt={userName}
@@ -225,25 +237,23 @@ const Authenticated = () => {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                {!blockUi && (
-                    <List
-                        iconsOnly={!open && isTablet}
-                        items={navMenuItems}
-                    />
-                )}
-                <Box
-                    sx={{
-                        position: 'fixed',
-                        bottom: 0,
-                        width: drawerWidth,
-                        ...!open && closedMixin(theme),
-                    }}
-                >
+                <Box sx={{ flexGrow: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+                    {!blockUi && (
+                        <List
+                            iconsOnly={!open && isTablet}
+                            items={navMenuItems}
+                            onClick={() => !isTablet && setOpen(false)}
+                        />
+                    )}
+                </Box>
+
+                <DrawerFooter open={open}>
                     <List
                         iconsOnly={!open && isTablet}
                         items={bottomMenuItems}
+                        sx={{ pt: 0 }}
                     />
-                </Box>
+                </DrawerFooter>
             </DrawerComponent>
             <Box
                 component="main"

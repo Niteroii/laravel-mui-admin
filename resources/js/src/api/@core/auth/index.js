@@ -1,4 +1,5 @@
 import Model from '../contracts/Model';
+import dialog from '../dialog';
 
 /**
  * Classe para gerenciar a autenticação do usuário.
@@ -16,9 +17,27 @@ class Auth {
 
     /**
      * Método para fazer o logout do usuário.
+     *
+     * @param {boolean} force - Fazer logout sem questionar.
      */
-    logout() {
-        this.constructor.submitLogoutForm();
+    logout(force = false) {
+        if (force) {
+            this.constructor.submitLogoutForm();
+            return;
+        }
+
+        const dialogOptions = {
+            title: t('navigate.logout'),
+            message: t('auth.logout.confirm'),
+            type: 'confirm',
+            confirmText: t('yes'),
+            cancelText: t('no'),
+        };
+        dialog.create(dialogOptions).then((result) => {
+            if (result) {
+                this.constructor.submitLogoutForm();
+            }
+        });
     }
 
     /**

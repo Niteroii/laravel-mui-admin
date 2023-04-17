@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import Close from '@mui/icons-material/Close';
+import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import HomeOutlined from '@mui/icons-material/HomeOutlined';
 import Inbox from '@mui/icons-material/MoveToInbox';
@@ -23,6 +24,7 @@ const IconsAvailable = {
     chevronLeft: ChevronLeft,
     chevronRight: ChevronRight,
     close: Close,
+    expandLess: ExpandLess,
     expandMore: ExpandMore,
     homeOutlined: HomeOutlined,
     inbox: Inbox,
