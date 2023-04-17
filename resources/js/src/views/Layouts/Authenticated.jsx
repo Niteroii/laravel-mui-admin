@@ -153,7 +153,7 @@ const Authenticated = () => {
                     <Button
                         component={Link}
                         to={route('profile')}
-                        sx={{ px: 2 }}
+                        sx={{ pr: 2 }}
                     >
                         <Avatar
                             alt={userName}
@@ -177,9 +177,11 @@ const Authenticated = () => {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <NavMenu
-                    iconsOnly={!open && isTablet}
-                />
+                {!blockUi && (
+                    <NavMenu
+                        iconsOnly={!open && isTablet}
+                    />
+                )}
             </DrawerComponent>
             <Box
                 component="main"

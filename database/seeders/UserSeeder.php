@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
 
         $user->save();
 
-        $this->command->info("User password generated: {$password}");
+        $this->command->info('Master user seeded successfully:');
+        $this->command->info($user->email);
+        $this->command->info($password);
     }
 }
