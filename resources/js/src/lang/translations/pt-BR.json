@@ -32,9 +32,9 @@
     "password": "Senha"
   },
   "verification": {
-    "check": "Verifique seu e-mail para o link de verificação.",
+    "check": "Verifique seu email",
     "notReceived": "Se você não recebeu o e-mail, clique no botão abaixo.",
-    "notice": "Antes de continuar, verifique seu e-mail para um link de verificação.",
+    "notice": "Antes de continuar, procure na caixa de entrada do seu e-mail para um link de verificação.",
     "resendButton": "Enviar email novamente",
     "resent": "Um novo link de verificação foi enviado para o seu endereço de e-mail."
   },

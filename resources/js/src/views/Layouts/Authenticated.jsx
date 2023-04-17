@@ -17,9 +17,57 @@ import Icon from '../../components/Icon';
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import NavMenu from '../../components/Menu/NavMenu';
+import List from '../../components/List';
+import api from '../../api';
 
 const drawerWidth = 240;
+
+const handleLogout = () => {
+    const { t } = api.lang;
+
+    const dialogOptions = {
+        title: t('navigate.logout'),
+        message: t('auth.logout.confirm'),
+        type: 'confirm',
+        confirmText: t('yes'),
+        cancelText: t('no'),
+    };
+    api.dialog.create(dialogOptions).then((result) => {
+        if (result) {
+            api.auth.logout();
+        }
+    });
+};
+
+const navMenuItems = [
+    {
+        key: 1,
+        text: api.lang.t('navigate.home'),
+        icon: 'homeOutlined',
+        ListItemButtonProps: {
+            component: Link,
+            to: route('home'),
+
+        },
+    },
+];
+
+const bottomMenuItems = [
+    {
+        element: (
+            <Divider
+                key="2"
+                sx={{ my: 1 }}
+            />
+        ),
+    },
+    {
+        key: 3,
+        text: api.lang.t('navigate.logout'),
+        icon: 'logout',
+        ListItemButtonProps: { onClick: handleLogout },
+    },
+];
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -178,10 +226,24 @@ const Authenticated = () => {
                 </DrawerHeader>
                 <Divider />
                 {!blockUi && (
-                    <NavMenu
+                    <List
                         iconsOnly={!open && isTablet}
+                        items={navMenuItems}
                     />
                 )}
+                <Box
+                    sx={{
+                        position: 'fixed',
+                        bottom: 0,
+                        width: drawerWidth,
+                        ...!open && closedMixin(theme),
+                    }}
+                >
+                    <List
+                        iconsOnly={!open && isTablet}
+                        items={bottomMenuItems}
+                    />
+                </Box>
             </DrawerComponent>
             <Box
                 component="main"

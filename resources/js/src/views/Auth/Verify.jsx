@@ -47,7 +47,7 @@ const Verify = () => {
                                 {t('verification.resent')}
                             </Alert>
                         )}
-                        <Typography>
+                        <Typography sx={{ mb: 1 }}>
                             {t('verification.notice')}
                         </Typography>
                         <Typography>
